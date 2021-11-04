@@ -48,7 +48,7 @@ public class GameOfLife {
 				}
 			}	
 		}
-		
+		//on met à jour matricePast
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
 				matricePast[i][j]=matrice[i][j];
@@ -146,16 +146,7 @@ public class GameOfLife {
 				}
 			}
 		}		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }
 
 

@@ -21,7 +21,6 @@ public class BallsSimulator implements Simulable{
 		balles.translate(10, 10);
 		System.out.println(balles.toString());
 		balles.dessiner(gui);
-		System.out.println(gui.getPanelWidth());
 	}
 
 	@Override
