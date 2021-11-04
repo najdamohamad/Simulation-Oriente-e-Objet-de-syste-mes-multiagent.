@@ -16,18 +16,12 @@ public class GameOfLife {
 		this.size=size;
 		matrice = new Etat[size][size];
 		matricePast = new Etat[size][size];
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				matrice[i][j]=Etat.Mort;
-				matricePast[i][j]=Etat.Mort;
-			}
-		}
 	}
 	
 	
 	public void move() {
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+		for (int i = 0; i < size; i+=10) {
+			for (int j = 0; j < size; j+=10) {
 				ArrayList<Etat> neighbors=voisins(i,j);
 				int nbVoisinsVivants=0;
 				for (Iterator<Etat> it = neighbors.iterator(); it.hasNext();) {
@@ -55,49 +49,57 @@ public class GameOfLife {
 			}	
 		}
 		
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+		for (int i = 0; i < size; i+=10) {
+			for (int j = 0; j < size; j+=10) {
 				matricePast[i][j]=matrice[i][j];
 			}
 		}
 	}
 	
 	public void init() {
-		matrice[size/2][(size/2)-1]=Etat.Vivant;
-		matrice[(size/2)+1][(size/2)-1]=Etat.Vivant;
-		matrice[(size/2)-1][size/2]=Etat.Vivant;
-		matrice[(size/2)-2][size/2]=Etat.Vivant;
-		matrice[size/2][(size/2)+1]=Etat.Vivant;
-		matrice[(size/2)+1][(size/2)+1]=Etat.Vivant;
+		for (int i = 0; i < size; i+=10) {
+			for (int j = 0; j < size; j+=10) {
+				matricePast[i][j]=Etat.Mort;
+				matrice[i][j]=Etat.Mort;
+			}
+		}
+		matrice[(size/2)-10][size/2]=Etat.Vivant;
+		matrice[(size/2)-10][(size/2)+10]=Etat.Vivant;
+		matrice[size/2][(size/2)-10]=Etat.Vivant;
+		matrice[size/2][(size/2)+20]=Etat.Vivant;
+		matrice[(size/2)+10][size/2]=Etat.Vivant;
+		matrice[(size/2)+10][(size/2)+10]=Etat.Vivant;
+		matrice[(size/2)-10][(size/2)+20]=Etat.Vivant;
 		
+		matricePast[(size/2)-10][size/2]=Etat.Vivant;
+		matricePast[(size/2)-10][(size/2)+10]=Etat.Vivant;
+		matricePast[size/2][(size/2)-10]=Etat.Vivant;
+		matricePast[size/2][(size/2)+20]=Etat.Vivant;
+		matricePast[(size/2)+10][size/2]=Etat.Vivant;
+		matricePast[(size/2)+10][(size/2)+10]=Etat.Vivant;
+		matricePast[(size/2)-10][(size/2)+20]=Etat.Vivant;
 		
-		matricePast[size/2][(size/2)-1]=Etat.Vivant;
-		matricePast[(size/2)+1][(size/2)-1]=Etat.Vivant;
-		matricePast[(size/2)-1][size/2]=Etat.Vivant;
-		matricePast[(size/2)-2][size/2]=Etat.Vivant;
-		matricePast[size/2][(size/2)+1]=Etat.Vivant;
-		matricePast[(size/2)+1][(size/2)+1]=Etat.Vivant;
 	}
 	
 	public ArrayList<Etat> voisins(int k, int m) {
 		
 		ArrayList<Etat> listeVoisins = new ArrayList<Etat>();
 		
-		int kMinus1=k-1;
-		int kPlus1=k+1;
-		int mMinus1=m-1;
-		int mPlus1=m+1;
+		int kMinus1=k-10;
+		int kPlus1=k+10;
+		int mMinus1=m-10;
+		int mPlus1=m+10;
 		
 		if (k==0) {
-			kMinus1=size-1;
+			kMinus1=size-10;
 		}
-		else if (k==size-1) {
+		else if (k==size-10) {
 			kPlus1=0;
 		}
 		if (m==0) {
-			mMinus1=size-1;
+			mMinus1=size-10;
 		}
-		else if(m==size-1) {
+		else if(m==size-10) {
 			mPlus1=0;
 		}
 		listeVoisins.add(matricePast[kMinus1][m]);
@@ -114,13 +116,10 @@ public class GameOfLife {
 	
 	public void dessiner(GUISimulator gui) {
 		gui.reset();
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+		for (int i = 0; i < size; i+=10) {
+			for (int j = 0; j < size; j+=10) {
 				if(matrice[i][j]==Etat.Vivant) {
 					gui.addGraphicalElement(new Rectangle(i,j,Color.BLUE,Color.BLUE,10));
-				}
-				else {
-					gui.addGraphicalElement(new Rectangle(i,j,Color.WHITE,Color.WHITE,10));
 				}
 			}
 		}		

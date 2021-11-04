@@ -12,6 +12,7 @@ public class GameOfLifeSimulator implements Simulable {
 		this.gui=gui;
 		conway=new GameOfLife(gui.getPanelHeight());
 		conway.init();
+		conway.dessiner(gui);
 	}
 
 	@Override
