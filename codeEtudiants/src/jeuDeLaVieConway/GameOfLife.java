@@ -63,6 +63,7 @@ public class GameOfLife {
 				matrice[i][j]=Etat.Mort;
 			}
 		}
+		//1st shape
 		matrice[(size/2)-10][size/2]=Etat.Vivant;
 		matrice[(size/2)-10][(size/2)+10]=Etat.Vivant;
 		matrice[size/2][(size/2)-10]=Etat.Vivant;
@@ -79,6 +80,28 @@ public class GameOfLife {
 		matricePast[(size/2)+10][(size/2)+10]=Etat.Vivant;
 		matricePast[(size/2)-10][(size/2)+20]=Etat.Vivant;
 		
+		//2nd shape(a all mess give a QR Code because a reference error is made )
+//		matrice[(size/2)-10][size/2]=Etat.Vivant;
+//		matrice[(size/2)-10][(size/2)+10]=Etat.Vivant;
+//		matrice[size/2][(size/2)-10]=Etat.Vivant;
+//		matrice[size/2][(size/2)+20]=Etat.Vivant;
+//		matrice[(size/2)+10][size/2]=Etat.Vivant;
+//		matrice[(size/2)+10][(size/2)+10]=Etat.Vivant;
+//		matrice[(size/2)-10][(size/2)+20]=Etat.Vivant;
+//		matricePast=matrice;
+		
+		//3rd shape ship
+//		matrice[0][0]=Etat.Vivant;
+//		matrice[0][10]=Etat.Vivant;
+//		matrice[0][20]=Etat.Vivant;
+//		matrice[10][0]=Etat.Vivant;
+//		matrice[20][10]=Etat.Vivant;
+//		
+//		matricePast[0][0]=Etat.Vivant;
+//		matricePast[0][10]=Etat.Vivant;
+//		matricePast[0][20]=Etat.Vivant;
+//		matricePast[10][0]=Etat.Vivant;
+//		matricePast[20][10]=Etat.Vivant;
 	}
 	
 	public ArrayList<Etat> voisins(int k, int m) {
