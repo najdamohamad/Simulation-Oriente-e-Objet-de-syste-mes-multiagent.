@@ -18,7 +18,18 @@ public class GameOfLife {
 		matricePast = new Etat[size][size];
 	}
 	
+	public GameOfLife() {
+		super();
+	}
 	
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
 	public void move() {
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
@@ -66,15 +77,17 @@ public class GameOfLife {
 		//Pour une meilleure visibilité n'utiliser qu'une forme et commenter les autres lignes
 		
 		//1st shape ruche modifié aboutissant à 4 ruches
-		firstShape();
+		//firstShape();
 		//2nd shape vaisseau
 		//shipShape();
 		//QrCode: bad example it's due to a reference error but it's beautiful enjoy;)
 		//qrCodeShape();
+		//melange du vaisseau et des ruches
+		fourthShape();
 
 	}
 	
-	public void firstShape() {
+	void firstShape() {
 		matrice[(size/2)-10][size/2]=Etat.Vivant;
 		matrice[(size/2)-10][(size/2)+10]=Etat.Vivant;
 		matrice[size/2][(size/2)-10]=Etat.Vivant;
@@ -115,6 +128,34 @@ public class GameOfLife {
 		matrice[(size/2)+10][(size/2)+10]=Etat.Vivant;
 		matrice[(size/2)-10][(size/2)+20]=Etat.Vivant;
 		matricePast=matrice;
+	}
+	
+	void fourthShape() {
+		firstShape();
+		matrice[0][150]=Etat.Vivant;
+        matrice[0][140]=Etat.Vivant;
+        matrice[10][130]=Etat.Vivant;
+        matrice[20][120]=Etat.Vivant;
+        matrice[30][130]=Etat.Vivant;
+        matrice[40][130]=Etat.Vivant;
+        matrice[50][140]=Etat.Vivant;
+        matrice[50][150]=Etat.Vivant;
+        matrice[40][160]=Etat.Vivant;
+        matrice[30][170]=Etat.Vivant;
+        matrice[20][160]=Etat.Vivant;
+
+
+        matricePast[0][150]=Etat.Vivant;
+        matricePast[0][140]=Etat.Vivant;
+        matricePast[10][130]=Etat.Vivant;
+        matricePast[20][120]=Etat.Vivant;
+        matricePast[30][130]=Etat.Vivant;
+        matricePast[40][130]=Etat.Vivant;
+        matricePast[50][140]=Etat.Vivant;
+        matricePast[50][150]=Etat.Vivant;
+        matricePast[40][160]=Etat.Vivant;
+        matricePast[30][170]=Etat.Vivant;
+        matricePast[20][160]=Etat.Vivant;
 	}
 	
 	public ArrayList<Etat> voisins(int k, int m) {
