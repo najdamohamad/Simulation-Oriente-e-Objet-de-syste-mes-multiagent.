@@ -1,11 +1,8 @@
 package jeuDeLaVieConway;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import gui.GUISimulator;
-import gui.Rectangle;
 
 public class GameOfLife {
 	private int size;
@@ -17,17 +14,21 @@ public class GameOfLife {
 		matrice = new Etat[size][size];
 		matricePast = new Etat[size][size];
 	}
-	
+
 	public GameOfLife() {
 		super();
 	}
-	
+
 	public void setSize(int size) {
 		this.size = size;
 	}
 
 	public int getSize() {
 		return size;
+	}
+
+	public Etat[][] getMatrice(){
+		return matrice;
 	}
 
 	public void move() {
@@ -47,7 +48,7 @@ public class GameOfLife {
 					}
 					else {
 						matrice[i][j] = Etat.Mort;
-					}	
+					}
 				}
 				if(matricePast[i][j]==Etat.Mort) {
 					if(nbVoisinsVivants==3) {
@@ -55,9 +56,9 @@ public class GameOfLife {
 					}
 					else {
 						matrice[i][j] = Etat.Mort;
-					}	
+					}
 				}
-			}	
+			}
 		}
 		//on met à jour matricePast
 		for (int i = 0; i < size; i+=10) {
@@ -66,7 +67,7 @@ public class GameOfLife {
 			}
 		}
 	}
-	
+
 	public void init() {
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
@@ -75,18 +76,18 @@ public class GameOfLife {
 			}
 		}
 		//Pour une meilleure visibilité n'utiliser qu'une forme et commenter les autres lignes
-		
+
 		//1st shape ruche modifié aboutissant à 4 ruches
-		//firstShape();
+		firstShape();
 		//2nd shape vaisseau
 		//shipShape();
 		//QrCode: bad example it's due to a reference error but it's beautiful enjoy;)
 		//qrCodeShape();
 		//melange du vaisseau et des ruches
-		fourthShape();
+		//fourthShape();
 
 	}
-	
+
 	void firstShape() {
 		matrice[(size/2)-10][size/2]=Etat.Vivant;
 		matrice[(size/2)-10][(size/2)+10]=Etat.Vivant;
@@ -95,7 +96,7 @@ public class GameOfLife {
 		matrice[(size/2)+10][size/2]=Etat.Vivant;
 		matrice[(size/2)+10][(size/2)+10]=Etat.Vivant;
 		matrice[(size/2)-10][(size/2)+20]=Etat.Vivant;
-		
+
 		matricePast[(size/2)-10][size/2]=Etat.Vivant;
 		matricePast[(size/2)-10][(size/2)+10]=Etat.Vivant;
 		matricePast[size/2][(size/2)-10]=Etat.Vivant;
@@ -104,21 +105,21 @@ public class GameOfLife {
 		matricePast[(size/2)+10][(size/2)+10]=Etat.Vivant;
 		matricePast[(size/2)-10][(size/2)+20]=Etat.Vivant;
 	}
-	
+
 	void shipShape() {
 		matrice[0][0]=Etat.Vivant;
 		matrice[0][10]=Etat.Vivant;
 		matrice[0][20]=Etat.Vivant;
 		matrice[10][0]=Etat.Vivant;
 		matrice[20][10]=Etat.Vivant;
-		
+
 		matricePast[0][0]=Etat.Vivant;
 		matricePast[0][10]=Etat.Vivant;
 		matricePast[0][20]=Etat.Vivant;
 		matricePast[10][0]=Etat.Vivant;
 		matricePast[20][10]=Etat.Vivant;
 	}
-	
+
 	void qrCodeShape() {
 		matrice[(size/2)-10][size/2]=Etat.Vivant;
 		matrice[(size/2)-10][(size/2)+10]=Etat.Vivant;
@@ -129,7 +130,7 @@ public class GameOfLife {
 		matrice[(size/2)-10][(size/2)+20]=Etat.Vivant;
 		matricePast=matrice;
 	}
-	
+
 	void fourthShape() {
 		firstShape();
 		matrice[0][150]=Etat.Vivant;
@@ -157,16 +158,16 @@ public class GameOfLife {
         matricePast[30][170]=Etat.Vivant;
         matricePast[20][160]=Etat.Vivant;
 	}
-	
+
 	public ArrayList<Etat> voisins(int k, int m) {
-		
+
 		ArrayList<Etat> listeVoisins = new ArrayList<Etat>();
-		
+
 		int kMinus1=k-10;
 		int kPlus1=k+10;
 		int mMinus1=m-10;
 		int mPlus1=m+10;
-		
+
 		if (k==0) {
 			kMinus1=size-10;
 		}
@@ -187,18 +188,9 @@ public class GameOfLife {
         listeVoisins.add(matricePast[kPlus1][m]);
         listeVoisins.add(matricePast[kPlus1][mMinus1]);
         listeVoisins.add(matricePast[kPlus1][mPlus1]);
-		
+
 		return listeVoisins;
 	}
-	
-	public void dessiner(GUISimulator gui) {
-		gui.reset();
-		for (int i = 0; i < size; i+=10) {
-			for (int j = 0; j < size; j+=10) {
-				if(matrice[i][j]==Etat.Vivant) {
-					gui.addGraphicalElement(new Rectangle(i,j,Color.BLUE,Color.BLUE,10));
-				}
-			}
-		}		
-	}	
+
+
 }
