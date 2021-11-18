@@ -17,9 +17,9 @@ public class BallsSimulator implements Simulable{
 	/**
 	*Constructeur du simulateur de balles. L'ensemble sera composé de "nombre" balles et affiché dans la fenêtre graphique "gui".
 	*/
-	public BallsSimulator(int nombre,GUISimulator gui,int tailleDeLaFenetreX,int tailleDeLaFenetreY) {
-		balles = new Balls(nombre,tailleDeLaFenetreX,tailleDeLaFenetreY);
+	public BallsSimulator(int nombre,GUISimulator gui) {
 		this.gui=gui;
+		balles = new Balls(nombre,gui.getPanelHeight(),gui.getPanelWidth());
 		balles.init();
 		EventManager.get().addEvent(new BallsEvent(0, balles));
 		}
