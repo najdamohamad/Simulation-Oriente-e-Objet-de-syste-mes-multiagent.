@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import gui.GUISimulator;
 import gui.Oval;
@@ -14,6 +15,9 @@ public class Balls {
 	//sensDeTranslation (nom plutot explicite) sert à faire rebondir les balles
 	private ArrayList<Integer> sensDeTranslationX;
 	private ArrayList<Integer> sensDeTranslationY;
+	private int nombre;
+	GUISimulator gui;
+	
 	
 	public Balls() {
 		this.listeBalles = new ArrayList<Point>();
@@ -22,6 +26,36 @@ public class Balls {
 		this.sensDeTranslationY = new ArrayList<Integer>();
 	}
 
+	public Balls(int nb, GUISimulator gui) {
+		this();
+		this.nombre=nb;
+		this.gui=gui;
+	}
+	
+	public ArrayList<Point> getListeBalles() {
+		return listeBalles;
+	}
+
+	public void setListeBalles(ArrayList<Point> listeBalles) {
+		this.listeBalles = listeBalles;
+	}
+
+	public ArrayList<Point> getListeInit() {
+		return listeInit;
+	}
+
+	public void setListeInit(ArrayList<Point> listeInit) {
+		this.listeInit = listeInit;
+	}
+	
+	public void init() {
+		Random r = new Random();
+		for (int i = 0; i < nombre; i++) {
+			add(new Point(r.nextInt(gui.getPanelHeight()),r.nextInt(gui.getPanelHeight())));
+		}
+		dessiner();
+	}
+	
 	public void add(Point p) {
 		listeBalles.add(p);
 		//on ne peut pas donner à listeInit.add le p comme argument car ça renverait à la meme reference et donc toute modif sur listeBalles se ferait sur listeInit
@@ -35,13 +69,13 @@ public class Balls {
 		Iterator<Point> it = listeBalles.iterator();
 		while (it.hasNext()) {
 			Point p = it.next();
-			if(p.x > 499-dx) {
+			if(p.x > gui.getPanelHeight()-dx) {
 				sensDeTranslationX.set(i, -1);
 			}
 			if(p.x < dx) {
 				sensDeTranslationX.set(i, 1);
 			}
-			if(p.y > 499-dy) {
+			if(p.y > gui.getPanelWidth()-dy) {
 				sensDeTranslationY.set(i, -1);
 			}
 			if(p.y < dy) {
@@ -64,7 +98,7 @@ public class Balls {
 		}
 	}
 	
-	public void dessiner(GUISimulator gui) {
+	public void dessiner() {
 		gui.reset();
 		Iterator<Point> it = listeBalles.iterator();
 		while(it.hasNext()) {

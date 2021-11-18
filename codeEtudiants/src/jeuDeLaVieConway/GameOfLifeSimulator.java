@@ -1,5 +1,7 @@
 package jeuDeLaVieConway;
 
+import event.EventManager;
+import event.GameOfLifeEvent;
 import gui.GUISimulator;
 import gui.Simulable;
 
@@ -13,11 +15,12 @@ public class GameOfLifeSimulator implements Simulable {
 		conway=new GameOfLife(gui.getPanelHeight());
 		conway.init();
 		conway.dessiner(gui);
+		EventManager.get().addEvent(new GameOfLifeEvent(0, conway));
 	}
 
 	@Override
 	public void next() {
-		conway.move();
+		EventManager.get().next();
 		conway.dessiner(gui);
 	}
 

@@ -1,14 +1,16 @@
-package simulateurBalles;
+package boids;
 
 import java.awt.Color;
 
 import gui.GUISimulator;
 
-public class TestBallsSimulator {
+public class TestBoidsSimulator {
 
 	public static void main(String[] args) {
 		GUISimulator gui = new GUISimulator(500, 500, Color.BLACK);
-		BallsSimulator simulator= new BallsSimulator(5,gui);
+		BoidsSimulator simulator = new BoidsSimulator(10,gui);
 		gui.setSimulable(simulator);
 	}
+
+
 }

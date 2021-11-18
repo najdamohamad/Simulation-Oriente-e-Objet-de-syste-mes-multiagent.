@@ -1,5 +1,7 @@
 package jeuDeLImmigration;
 
+import event.EventManager;
+import event.GameOfLifeEvent;
 import gui.GUISimulator;
 import gui.Simulable;
 
@@ -14,11 +16,12 @@ public class GameOfImmigrationSimulator implements Simulable {
 		this.nbEtats=nbEtats;
 		immigration = new GameOfImmigration(gui.getPanelHeight(), this.nbEtats);
 		immigration.dessiner(gui);
+		EventManager.get().addEvent(new GameOfLifeEvent(0, immigration));
 	}
 
 	@Override
 	public void next() {
-		immigration.move();
+		EventManager.get().next();
 		immigration.dessiner(gui);
 	}
 

@@ -1,5 +1,7 @@
 package segregationSchelling;
 
+import event.EventManager;
+import event.GameOfLifeEvent;
 import gui.GUISimulator;
 import gui.Simulable;
 
@@ -15,11 +17,12 @@ public class SegregationSimulator implements Simulable {
 		this.seuil = seuil;
 		schelling = new Segregation(gui.getPanelHeight(), this.nbCouleurs, this.seuil);
 		schelling.dessiner(gui);
+		EventManager.get().addEvent(new GameOfLifeEvent(0, schelling));
 	}
 
 	@Override
 	public void next() {
-		schelling.move();
+		EventManager.get().next();
 		schelling.dessiner(gui);
 		
 	}

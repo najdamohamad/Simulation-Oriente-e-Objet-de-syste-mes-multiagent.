@@ -1,33 +1,31 @@
 package simulateurBalles;
 
-import java.awt.Point;
-
+import event.BallsEvent;
+import event.EventManager;
 import gui.GUISimulator;
 import gui.Simulable;
 
 public class BallsSimulator implements Simulable{
 	private Balls balles;
-	GUISimulator gui;
 	
-	public BallsSimulator() {
-		balles = new Balls();
-		balles.add(new Point(0,100));
-		balles.add(new Point(100,350));
-		balles.add(new Point(360,40));
-	}
+	public BallsSimulator(int nombre,GUISimulator gui) {
+		balles = new Balls(nombre,gui);
+		balles.init();
+		EventManager.get().addEvent(new BallsEvent(0, balles));
+		}
 	
 	@Override
 	public void next() {
-		balles.translate(10, 10);
+		EventManager.get().next();
 		System.out.println(balles.toString());
-		balles.dessiner(gui);
+		balles.dessiner();
 	}
 
 	@Override
 	public void restart() {
 		balles.reInit();
 		System.out.println(balles.toString());
-		balles.dessiner(gui);
+		balles.dessiner();
 	}
 	
 }
