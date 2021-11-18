@@ -61,7 +61,7 @@ public class GameOfImmigration extends GameOfLife {
 
 	public int[][] getMatriceInit() {
 		return matriceInit;
-	}
+	} 
 
 	public Color[] initialiseCouleurs() {
 		Color [] couleurs = new Color [this.nbEtats];

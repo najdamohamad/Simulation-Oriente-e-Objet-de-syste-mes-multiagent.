@@ -11,7 +11,7 @@ public class Segregation extends GameOfImmigration {
 	private int seuil;
 	private int nbCouleurs;
 	private LinkedList<Point> listesVacants;
-	
+
 
 	public Segregation(int size, int nbCouleurs, int seuil) {
 		super();
@@ -51,7 +51,7 @@ public class Segregation extends GameOfImmigration {
 				int nbVoisinsCouleursDifferentes=0;
 				int couleurActuelle = matrice2[i][j];
 				for (int k = 0; k < neighbors.length; k++) {
-					if (couleurActuelle!=0 &&neighbors[k] !=couleurActuelle && neighbors[k]!=0) {
+					if (couleurActuelle!=0 && neighbors[k]!=couleurActuelle && neighbors[k]!=0) {
 						nbVoisinsCouleursDifferentes++;
 					}
 				}
@@ -97,5 +97,5 @@ public class Segregation extends GameOfImmigration {
 			this.setMatriceInit(matrice3);
 		}
 	}
-	
+
 }
