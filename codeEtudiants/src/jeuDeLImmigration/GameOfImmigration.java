@@ -1,10 +1,9 @@
 package jeuDeLImmigration;
 
-import java.awt.Color;
 import java.util.Random;
+import java.awt.Color;
 
-import gui.GUISimulator;
-import gui.Rectangle;
+
 import jeuDeLaVieConway.GameOfLife;
 
 public class GameOfImmigration extends GameOfLife {
@@ -13,8 +12,8 @@ public class GameOfImmigration extends GameOfLife {
 	private int[][] matriceImPast;
 	private int[][] matriceInit;
 	private Color[] listeCouleurs;
-	
-	
+
+
 	public GameOfImmigration(int size, int nbEtats) {
 		super(size);
 		this.nbEtats = nbEtats;
@@ -27,7 +26,7 @@ public class GameOfImmigration extends GameOfLife {
 	public GameOfImmigration() {
 		super();
 	}
-	
+
 	public int getNbEtats() {
 		return nbEtats;
 	}
@@ -74,7 +73,7 @@ public class GameOfImmigration extends GameOfLife {
 		}
 		return couleurs;
 	}
-	
+
 	public void setMatriceInit(int[][] matriceInit) {
 		this.matriceInit = matriceInit;
 	}
@@ -121,7 +120,7 @@ public class GameOfImmigration extends GameOfLife {
 		}
 	}
 
-	
+
 	public int[] voisinsIm(int k, int m) {
 		int[] listeVoisins = new int[8];
 		int size=this.getSize();
@@ -129,7 +128,7 @@ public class GameOfImmigration extends GameOfLife {
 		int kPlus1=k+10;
 		int mMinus1=m-10;
 		int mPlus1=m+10;
-		
+
 		if (k==0) {
 			kMinus1=size-10;
 		}
@@ -150,23 +149,12 @@ public class GameOfImmigration extends GameOfLife {
         listeVoisins[5]=matriceImPast[kPlus1][m];
         listeVoisins[6]=matriceImPast[kPlus1][mMinus1];
         listeVoisins[7]=matriceImPast[kPlus1][mPlus1];
-        
+
 		return listeVoisins;
 	}
 
-	@Override
-	public void dessiner(GUISimulator gui) {
-		int size = this.getSize();
-		gui.reset();
-		for (int i = 0; i < size; i+=10) {
-			for (int j = 0; j < size; j+=10) {
-				int k=matriceIm[i][j];
-				Color couleur = listeCouleurs[k];
-				gui.addGraphicalElement(new Rectangle(i,j,couleur,couleur,10));
-			}
-		}	
-	}
-	
+
+
 	public void reinitialiser() {
 		int size=this.getSize();
 		for (int i = 0; i < size; i+=10) {
@@ -176,5 +164,5 @@ public class GameOfImmigration extends GameOfLife {
 			}
 		}
 	}
-	
+
 }
