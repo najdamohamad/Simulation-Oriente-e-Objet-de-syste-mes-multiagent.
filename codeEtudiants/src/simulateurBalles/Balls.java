@@ -27,9 +27,9 @@ public class Balls {
 	/**
 	*Nombre de balles de l'ensemble.
 	*/
-	private int nombre;
-	private int tailleDeLaFenetreX;
-	private int tailleDeLaFenetreY;
+	protected int nombre;
+	protected int tailleDeLaFenetreX;
+	protected int tailleDeLaFenetreY;
 
 
 	/**
@@ -43,6 +43,13 @@ public class Balls {
 		this.nombre=nb;
 		this.tailleDeLaFenetreX=tailleX;
 		this.tailleDeLaFenetreY=tailleY;
+	}
+
+	/**
+	*Accesseur a "nombre".
+	*/
+	public int getNombre() {
+		return nombre;
 	}
 
 	/**
