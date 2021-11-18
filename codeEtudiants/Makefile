@@ -21,10 +21,31 @@
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
 
-all: testGUI 
+all: testGUI testBalls testBallsSimulator testConwaySimulator testImmigrationSimulator testSegregationSimulator testBoidsSimulator testEventManager
 
 testGUI:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestGUI.java
+
+testBalls:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/simulateurBalles/TestBalls.java
+
+testBallsSimulator:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/simulateurBalles/TestBallsSimulator.java
+
+testConwaySimulator:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/jeuDeLaVieConway/TestGameOfLifeSimulator.java
+
+testImmigrationSimulator:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/jeuDeLImmigration/TestGameOfImmigrationSimulator.java
+
+testSegregationSimulator:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/segregationSchelling/TestSegregationSimulator.java
+
+testBoidsSimulator:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/boids/TestBoidsSimulator.java
+
+testEventManager:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/event/TestEventManager.java
 
 
 # Execution:
@@ -35,6 +56,26 @@ testGUI:
 exeGUI:
 	java -classpath bin:bin/gui.jar TestGUI
 
-clean:
-	rm -rf bin/*.class
+exeBalls:
+	java -classpath bin:bin/gui.jar simulateurBalles/TestBalls
 
+exeBallsSimulator:
+	java -classpath bin:bin/gui.jar simulateurBalles/TestBallsSimulator
+
+exeConwaySimulator:
+	java -classpath bin:bin/gui.jar jeuDeLaVieConway/TestGameOfLifeSimulator
+
+exeImmigrationSimulator:
+	java -classpath bin:bin/gui.jar jeuDeLImmigration/TestGameOfImmigrationSimulator
+
+exeSegregationSimulator:
+	java -classpath bin:bin/gui.jar segregationSchelling/TestSegregationSimulator
+
+exeBoidsSimulator:
+	java -classpath bin:bin/gui.jar boids/TestBoidsSimulator
+
+exeEventManager:
+	java -classpath bin:bin/gui.jar event/TestEventManager
+
+clean:
+	rm -rf bin/*.class bin/simulateurBalles/*.class bin/jeuDeLaVieConway/*.class bin/jeuDeLImmigration/*.class bin/segregationSchelling/*.class bin/boids/*.class bin/event/*.class  
