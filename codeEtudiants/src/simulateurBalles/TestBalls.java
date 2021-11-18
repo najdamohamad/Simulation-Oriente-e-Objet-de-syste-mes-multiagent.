@@ -5,7 +5,7 @@ import java.awt.Point;
 public class TestBalls {
 
 	public static void main(String[] args) {
-		Balls balles = new Balls();
+		Balls balles = new Balls(2,50,50);
 		System.out.println(balles.toString());
 		balles.add(new Point(1,5));
 		balles.add(new Point(2,9));
