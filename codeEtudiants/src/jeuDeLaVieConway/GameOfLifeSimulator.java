@@ -18,9 +18,9 @@ public class GameOfLifeSimulator implements Simulable {
 	/**
 	*@param gui Fenetre graphique du simulateur.
 	*/
-	public GameOfLifeSimulator(GUISimulator gui) {
+	public GameOfLifeSimulator(GUISimulator gui,int choix_forme) {
 		this.gui=gui;
-		conway=new GameOfLife(gui.getPanelHeight());
+		conway=new GameOfLife(gui.getPanelHeight(),choix_forme);
 		conway.init();
 		dessiner(gui);
 		EventManager.get().addEvent(new GameOfLifeEvent(0, conway));

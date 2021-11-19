@@ -17,6 +17,8 @@ public class GameOfLife {
 	*Matrice représentant la simulation à l'état n-1. On se base sur l'état n-1 pour décrire l'état n.
 	*/
 	private int [][] matricePast;
+	
+	private int choix_forme;
 
 	/**
 	*@param size Taille de la matrice de simulation
@@ -25,6 +27,11 @@ public class GameOfLife {
 		this.size=size;
 		matrice = new int[size][size];
 		matricePast = new int[size][size];
+	}
+	
+	public GameOfLife(int size, int choix_forme) {
+		this(size);
+		this.choix_forme=choix_forme;
 	}
 	
 	protected static final int VIVANT=1;
@@ -132,13 +139,23 @@ public class GameOfLife {
 		//Pour une meilleure visibilité n'utiliser qu'une forme et commenter les autres lignes
 
 		//1st shape ruche modifié aboutissant à 4 ruches
-		//firstShape();
+		if(choix_forme==1) {
+			firstShape();
+		}
 		//2nd shape vaisseau
-		shipShape();
+		else if(choix_forme==2) {
+			shipShape();
+		}
 		//QrCode: bad example it's due to a reference error but it's beautiful enjoy;)
-		//qrCodeShape();
-		//melange du vaisseau et des ruches
-		//fourthShape();
+		else if(choix_forme==3) {
+			qrCodeShape();
+		}
+		//melange du vaisseau et des ruches;
+		else if(choix_forme==4) {
+			fourthShape();
+		}
+		
+		
 
 	}
 
