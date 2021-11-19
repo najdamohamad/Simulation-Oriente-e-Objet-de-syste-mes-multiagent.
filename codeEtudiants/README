@@ -1,7 +1,8 @@
 Ensimag 2A POO - TPL
 ============================
 
-- src: contient les classes fournies par les enseignants 
+- src: contient les dossier des classes utiles aux différentes simulations
+
   -> TestGUI.java : cree une fenetre graphique "Invaders", pas de simulation
   Et c'est tout, en fait!
 
@@ -10,4 +11,3 @@ Ensimag 2A POO - TPL
 - doc_gui: la documentation (API) des classes de l'interface graphique contenues dans gui.jar. Point d'entrée: index.html
 
 - Makefile: quelques explications sur la compilation en ligne, notamment la notion de classpath et l'utilisation de ihm.jar
-
