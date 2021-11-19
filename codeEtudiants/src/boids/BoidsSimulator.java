@@ -5,12 +5,14 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import event.BoidsEvent;
+import event.EventManager;
 import gui.GUISimulator;
 import gui.Oval;
 import gui.Simulable;
 
 /**
- * 
+ *
  * Classe BoidsSimulator chargé de la simulation des comportements definies dans la classe boids
  *
  */
@@ -20,15 +22,16 @@ public class BoidsSimulator implements Simulable {
 
 	/*
 	 * Constructeur de la classe BoidsSimulator L'ensemble est composé de nombre boids tous de meme nature et d'une fenetre graphique
-	 *@param nombre Nombre de boids présents dans la simulation 
+	 *@param nombre Nombre de boids présents dans la simulation
 	 *@param gui Fenetre graphique de la simulation
 	 */
 	public BoidsSimulator(int nombre, GUISimulator gui) {
 		this.gui=gui;
 		boids=new Boids(nombre,gui.getPanelHeight(),gui.getPanelWidth(),1);
 		dessiner();
+		EventManager.get().addEvent(new BoidsEvent(0, boids));
 	}
-	
+
 	/** Draw on the screen the boids*/
 	public void dessiner() {
 		gui.reset();
@@ -43,23 +46,24 @@ public class BoidsSimulator implements Simulable {
 //			indice++;
 		}
 	}
-	
+
 	/*
 	 * Incremente la simulation d'un pas
 	 */
 	@Override
 	public void next() {
-		boids.move();
+		EventManager.get().next();
+		//boids.move();
 		dessiner();
 	}
-	
+
 	/*
 	 * Reinitialise la simulation
 	 */
 	@Override
 	public void restart() {
 		boids.reInit();
-		dessiner();	
+		dessiner();
 	}
 
 }
