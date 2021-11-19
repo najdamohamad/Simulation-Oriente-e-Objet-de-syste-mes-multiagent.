@@ -21,6 +21,8 @@ public class Predateurs extends Boids {
 	
 	/*
 	 * Constructeur de la classe Predateurs
+	 * @param nombre Nombre de boids pris en charge dans la simulation
+	 * @param gui fenetre graphique
 	 */
 	public Predateurs(int nombre, GUISimulator gui) {
 		super(nombre, gui.getPanelHeight(), gui.getPanelWidth());
@@ -40,6 +42,8 @@ public class Predateurs extends Boids {
 	
 	/*
 	 * Regle de chasse pour les predateurs qui poursuivent les proies
+	 * @param boid position du boid sur laquelle la methode est appelée
+	 * @param indice l'indice occupé par le boid dans les differents vecteurs
 	 */
 	protected void ruleChasePrey(Point bj, int index) {
 		ArrayList<Point> listePositions = getListeBalles();
@@ -69,6 +73,8 @@ public class Predateurs extends Boids {
 	
 	/*
 	 * Règles de fuite pour les proies qui cherchent à eviter les predateurs
+	 * @param boid position du boid sur laquelle la methode est appelée
+	 * @param indice l'indice occupé par le boid dans les differents vecteurs
 	 */
 	protected void ruleEscapePred(Point bj, int index) {
 		ArrayList<Point> listePositions = getListeBalles();
@@ -98,6 +104,8 @@ public class Predateurs extends Boids {
 	/*
 	 * Methode qui definit le deplacement des proies
 	 * Applique les differentes régles et remplie les vecteurs correspondant 
+	 * @param boid position du boid sur laquelle la methode est appelée
+	 * @param indice l'indice occupé par le boid dans les differents vecteurs
 	 */
 	public void moveProie(Point boid, int indice) {
 		rule1(indice);
@@ -134,7 +142,7 @@ public class Predateurs extends Boids {
 		Vector<Point> vectorRule1=getVectorRule1();
 		Vector<Point> vectorRule2=getVectorRule2();
 		Vector<Point> vectorRule3=getVectorRule3();
-		for (int i = 0; i < getNombresBoids(); i++) {
+		for (int i = 0; i < getNombre(); i++) {
 			double nombreAlea = Math.random();
 			if(nombreAlea<PREY_RATIO) {
 				typeBoids[i]=PROIE;
@@ -194,6 +202,8 @@ public class Predateurs extends Boids {
 	
 	/*
 	 * Methode definissant le deplacement des predateurs en appliquanr les differentes regles et en mettant à jour les vecteurs
+	 * @param boid position du boid sur laquelle la methode est appelée
+	 * @param indice l'indice occupé par le boid dans les differents vecteurs
 	 */
 	public void movePredateur(Point boid, int indice) {
 		rule1(indice);

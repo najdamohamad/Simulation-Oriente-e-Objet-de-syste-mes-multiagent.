@@ -8,8 +8,12 @@ import java.util.Vector;
 
 import simulateurBalles.Balls;
 
+/**
+ * 
+ * Cette classe sert à la simulation d'un groupe de boids ayant tous la meme nature
+ *
+ */
 public class Boids extends Balls {
-	private int nombresBoids;
 	//vecteurs correspondants aux differentes regles
 	private Vector<Point> vitesses;
 	private Vector<Point> vectorRule1;
@@ -22,15 +26,19 @@ public class Boids extends Balls {
 	protected static final int SPEED_LIMIT =20;
 
 
-	
+	/*
+	 * Constructeur de la classe Predateurs
+	 * @param nombre Nombre de boids pris en charge dans la simulation
+	 * @param tailleX taille de la fenetre graphique suivant l'axe X
+	 * @param tailleY taille de la fenetre graphique suivant l'axe Y
+	 */
 	public Boids(int nombre, int tailleX, int tailleY) {
 		super(nombre,tailleX,tailleY);
-		nombresBoids=nombre;
 		vitesses=new Vector<Point>();
 		vectorRule1=new Vector<Point>();
 		vectorRule2=new Vector<Point>();
 		vectorRule3=new Vector<Point>();
-		type = new int[nombresBoids];
+		type = new int[getNombre()];
 	}
 	
 	/**Les classes filles de Boids vont override la fonction init() 
@@ -114,7 +122,7 @@ public class Boids extends Balls {
 		ArrayList<Point> listeBoids = getListeBalles();
 		ArrayList<Point> initList=new ArrayList<Point>();
 		Random r = new Random();
-		for (int i = 0; i < nombresBoids; i++) {
+		for (int i = 0; i < getNombre(); i++) {
 			Point p = new Point(r.nextInt(this.tailleDeLaFenetreX),r.nextInt(this.tailleDeLaFenetreY));
 			listeBoids.add(p);
 			initList.add(new Point(p.x,p.y));
@@ -127,15 +135,10 @@ public class Boids extends Balls {
 		setListeBalles(listeBoids);
 		setListeInit(initList);
 	}
-	
-	/*
-	 * Getter du nombre de boids
-	 */
-	public int getNombresBoids() {
-		return nombresBoids;
-	}
 
-	/**Boids try to fly towards the centre of mass of neighbouring boids of the same type*/
+	/**Boids try to fly towards the centre of mass of neighbouring boids of the same type
+	 * @param indice position occupé par le boid dans les differents vecteurs
+	 * */
 	protected void rule1(int indice) {
 		Point positionCentre=new Point();
 		int index=0;
@@ -167,7 +170,10 @@ public class Boids extends Balls {
 		vectorRule1.setElementAt(p, indice);
 	}
 	
-	/**Boids try to keep a small distance away from other boids*/
+	/**Boids try to keep a small distance away from other boids
+	 * @param bj localisation du boid
+	 * @param indice position occupé par le boid dans les differents vecteurs
+	 * */
 	protected void rule2(Point bj, int indice) {
 		Point v=new Point();
 		int index=0;
@@ -186,7 +192,10 @@ public class Boids extends Balls {
 		}
 		vectorRule2.setElementAt(v, indice);
 	}
-	/**Boids try to match velocity with near boids*/
+	/**Boids try to match velocity with near boids
+	 * 
+	 * @param indice position occupé par le boid dans les differents vecteurs
+	 * */
 	protected void rule3(int indice) {
 		Point v= new Point();
 		int index=0;
@@ -200,14 +209,18 @@ public class Boids extends Balls {
 			}
 			index++;
 		}
-		v.x/=(nombresBoids-1);
-		v.y/=(nombresBoids-1);
+		v.x/=(getNombre()-1);
+		v.y/=(getNombre()-1);
 		v.x = (v.x - vitesses.get(indice).x)/8;
 		v.y = (v.y - vitesses.get(indice).y)/8;
 		vectorRule3.setElementAt(v, indice);
 	}
 	
-	/**Rule to enable boids bounding on the limits of the screen*/
+	/**Rule to enable boids bounding on the limits of the screen
+	 * 
+	 * @param bj localisation du boid
+	 * @param indice position occupé par le boid dans les differents vecteurs
+	 * */
 	protected void rule4Bounds(Point bj, int indice) {
 		Point v = vitesses.get(indice);
 		if(bj.x < 0) {
@@ -225,9 +238,11 @@ public class Boids extends Balls {
 		vitesses.setElementAt(v, indice);
 	}
 	
-	/**Rule to limit the speed of the boids*/
+	/**Rule to limit the speed of the boids
+	 * @param vlim la vitesse limite
+	 * */
 	protected void rule5SpeedLImit(int vlim) {
-		for (int i = 0; i < nombresBoids; i++) {
+		for (int i = 0; i < getNombre(); i++) {
 			Point v = vitesses.get(i);
 			int module =(int) Math.sqrt(Math.pow(v.x,2)+Math.pow(v.y,2));
 			if(module> vlim) {
