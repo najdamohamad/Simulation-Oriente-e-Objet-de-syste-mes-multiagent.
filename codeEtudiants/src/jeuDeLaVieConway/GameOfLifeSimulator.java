@@ -12,7 +12,9 @@ public class GameOfLifeSimulator implements Simulable {
 	private GameOfLife conway;
 	GUISimulator gui;
 
-
+	/**
+	*@param gui Fenetre graphique du simulateur.
+	*/
 	public GameOfLifeSimulator(GUISimulator gui) {
 		this.gui=gui;
 		conway=new GameOfLife(gui.getPanelHeight());
@@ -21,6 +23,9 @@ public class GameOfLifeSimulator implements Simulable {
 		EventManager.get().addEvent(new GameOfLifeEvent(0, conway));
 	}
 
+	/**
+	*Représente les elements de la matrice de simulation dans la fenêtre graphique.
+	*/
 	public void dessiner(GUISimulator gui) {
 		gui.reset();
 		for (int i = 0; i < conway.getSize(); i+=10) {
@@ -32,12 +37,18 @@ public class GameOfLifeSimulator implements Simulable {
 		}
 	}
 
+	/**
+	*Incrémente la simulation d'un pas.
+	*/
 	@Override
 	public void next() {
 		EventManager.get().next();
 		dessiner(gui);
 	}
 
+	/**
+	*Réinitialise la simulation.
+	*/
 	@Override
 	public void restart() {
 		conway.init();

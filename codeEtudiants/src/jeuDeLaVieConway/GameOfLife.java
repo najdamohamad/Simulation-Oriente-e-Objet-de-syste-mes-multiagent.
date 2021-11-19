@@ -5,10 +5,22 @@ import java.util.Iterator;
 
 
 public class GameOfLife {
+	/**
+	*Taille de la matrice de simulation. La matrice est carré de taille size*size.
+	*/
 	private int size;
+	/**
+	*Matrice représentant la simulation à l'instant n.
+	*/
 	private Etat [][] matrice;
+	/**
+	*Matrice représentant la simulation à l'état n-1. On se base sur l'état n-1 pour décrire l'état n.
+	*/
 	private Etat [][] matricePast;
 
+	/**
+	*@param size Taille de la matrice de simulation
+	*/
 	public GameOfLife(int size) {
 		this.size=size;
 		matrice = new Etat[size][size];
@@ -19,6 +31,9 @@ public class GameOfLife {
 		super();
 	}
 
+	/**
+	*@param size Taille de la matrice de simulation
+	*/
 	public void setSize(int size) {
 		this.size = size;
 	}
@@ -31,6 +46,9 @@ public class GameOfLife {
 		return matrice;
 	}
 
+	/**
+	*Passage de l'état n à l'état n+1 de la simulation. L'état de chaque cellule est recalculé suivant les règle du jeu de la vie de Conway.
+	*/
 	public void move() {
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
@@ -68,6 +86,9 @@ public class GameOfLife {
 		}
 	}
 
+	/**
+	*Initialisation de la matrice de simulation. Les cellules initialement vivantes sont choisies selon une forme particulière.
+	*/
 	public void init() {
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
@@ -88,6 +109,9 @@ public class GameOfLife {
 
 	}
 
+	/**
+	*Initialisation possible de l'ensemble des cellules vivantes.
+	*/
 	void firstShape() {
 		matrice[(size/2)-10][size/2]=Etat.Vivant;
 		matrice[(size/2)-10][(size/2)+10]=Etat.Vivant;
@@ -106,6 +130,9 @@ public class GameOfLife {
 		matricePast[(size/2)-10][(size/2)+20]=Etat.Vivant;
 	}
 
+	/**
+	*Initialisation possible de l'ensemble des cellules vivantes.
+	*/
 	void shipShape() {
 		matrice[0][0]=Etat.Vivant;
 		matrice[0][10]=Etat.Vivant;
@@ -120,6 +147,9 @@ public class GameOfLife {
 		matricePast[20][10]=Etat.Vivant;
 	}
 
+	/**
+	*Initialisation possible de l'ensemble des cellules vivantes.
+	*/
 	void qrCodeShape() {
 		matrice[(size/2)-10][size/2]=Etat.Vivant;
 		matrice[(size/2)-10][(size/2)+10]=Etat.Vivant;
@@ -131,6 +161,9 @@ public class GameOfLife {
 		matricePast=matrice;
 	}
 
+	/**
+	*Initialisation possible de l'ensemble des cellules vivantes.
+	*/
 	void fourthShape() {
 		firstShape();
 		matrice[0][150]=Etat.Vivant;
@@ -159,6 +192,11 @@ public class GameOfLife {
         matricePast[20][160]=Etat.Vivant;
 	}
 
+	/**
+	*Liste de l'ensemble des cellules voisine d'une cellule.
+	*@param k Ligne de la cellule dont on cherche les voisins.
+	*@param m Colone de la cellule dont on cherche les voisins.
+	*/
 	public ArrayList<Etat> voisins(int k, int m) {
 
 		ArrayList<Etat> listeVoisins = new ArrayList<Etat>();
