@@ -10,7 +10,9 @@ DESCRIPTIF DES DOSSIERS ET FICHIERS DU REPERTOIRE:
     Et c'est tout, en fait!
 
     -> Les dossiers suivant englobent les différentes parties du sujet:
+
         |-> simulateurBalles : dossier concernant la simulation de balles.
+
             |-> Balls.java : class Balls (partie calcul des balles).
             |-> BallsSimulateur.java : class BallsSimulator (partie simulation graphique des balles).
             |-> TestBalls.java : Créé un ensemble de 1 balle, la fait translater et la reinitialise.
@@ -18,6 +20,7 @@ DESCRIPTIF DES DOSSIERS ET FICHIERS DU REPERTOIRE:
                                           Les balles rebondissent sur les paroies de la zone définie.
 
         |-> jeuDeLaVieConway : dossier concernant la simulation du jeu de la vie de Conway.
+
             |-> Etat.java : enumération d'un ensemble d'états possibles.
             |-> GameOfLife.java : class GameOfLife (partie calcul du jeu de la vie).
             |-> GameOfLifeSimulator.java : class GameOfLifeSimulator (partie simulation graphique du jeu de la vie).
@@ -27,18 +30,21 @@ DESCRIPTIF DES DOSSIERS ET FICHIERS DU REPERTOIRE:
                                                   -Une celule bleue est vivante.
 
         |-> jeuDeLImmigration : dossier concernant la simulation du jeu de l'immigration.
+
             |-> GameOfImmigration.java : class GameOfImmigration (partie calcul du jeu de l'immigration).
             |-> GameOfImmigrationSimulator.java : class GameOfImmigrationSimulator (partie simulation graphique du jeu de l'immigration).
             |-> TestGameOfImmigrationSimulator.java : Simule, dans une interface graphique le jeu de l'immigration.
                                                       Les cellules apparaissent dans différentes couleurs : chaque couleur correspond à un état différent pour une cellule
 
         |-> segregationSchelling : dossier concernant la simulation de la ségrégation selon le model de Schelling.
+
             |-> Segregation.java : class Segregation (partie calcul du model de ségrégation).
             |-> SegregationSimulator.java : class SegregationSimulator (partie simulation graphique du model de ségégation).
             |-> TestSegregationSimulator.java : Simule, dans une interface graphique le modèle de ségrégation.
 
 
         |-> boids : dossier concernant la simulation d'unensemble de boids.
+
             |-> Boids.java : class Boids (partie calcul de la modélisation des boids).
             |-> BoidsSimulator.java : class BoidsSimulator (partie simulation graphique de la modélisation des boids).
             |-> TestSegregationSimulator.java : Simule, dans une interface graphique nos boids.
@@ -56,6 +62,7 @@ DESCRIPTIF DES DOSSIERS ET FICHIERS DU REPERTOIRE:
   - doc_gui: la documentation (API) des classes de l'interface graphique contenues dans gui.jar. Point d'entrée: index.html
 
   - Makefile: Ensemble des commandes à effectuer pour:
+
                 |-> Compiler les sources.
                 |-> Lancer l'execution des simulations.
                 |-> Générer la docs java de nos sources (en.html).
@@ -76,9 +83,11 @@ LANCEMENT D'UN PROGRAMME DE TEST: DIFFERENTES OPTIONS
 COMMANDE DE GENERATION DE LA DOCUMENTATION JAVA:
 
     - Commande générale : make docs
+
         |-> Cette commande génère l'intégralité de la doc des sources contenues dans src/
 
     - Commande particulières:
+
         |-> make docsSimulateurBalles
             |-> Génère la docs relative aux fichiers de src/simulateurBalles.
 
@@ -102,9 +111,11 @@ COMMANDE DE GENERATION DE LA DOCUMENTATION JAVA:
 COMMANDE DE COMPILATION:
 
     - Commande générale : make
+
         |-> Cette commande compile l'intégralité des sources contenues dans src/
 
     - Commande particulières:
+
         |-> make testBalls
             |-> Compile testBalls.java.
 
