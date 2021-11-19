@@ -1,8 +1,9 @@
 package jeuDeLImmigration;
 
-import java.util.Random;
 import java.awt.Color;
-
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 import jeuDeLaVieConway.GameOfLife;
 
@@ -12,6 +13,11 @@ public class GameOfImmigration extends GameOfLife {
 	private Color[] listeCouleurs;
 
 
+	/*
+	 * Constructeur de la classe Segregation
+	 * @param size taille de la fenetre graphique
+	 * @param nbEtats Nombre d'etats pris en compte dans la simulation
+	 */
 	public GameOfImmigration(int size, int nbEtats) {
 		super(size);
 		this.nbEtats = nbEtats;
@@ -19,30 +25,49 @@ public class GameOfImmigration extends GameOfLife {
 		listeCouleurs= initialiseCouleurs();
 		this.init();
 	}
+	
 	public GameOfImmigration() {
 		super();
 	}
-
+	/*
+	 * Getter du nombre d'etats
+	 */
 	public int getNbEtats() {
 		return nbEtats;
 	}
 
+	/*
+	 * Setter du nombre d'etats
+	 */
 	public void setNbEtats(int nbEtats) {
 		this.nbEtats = nbEtats;
 	}
-
+	
+	/*
+	 * Getter de la liste des couleurs utilisées
+	 */
 	public Color[] getListeCouleurs() {
 		return listeCouleurs;
 	}
-
+	
+	/*
+	 * Setter de la liste des couleurs
+	 * @param listeCouleurs
+	 */
 	public void setListeCouleurs(Color[] listeCouleurs) {
 		this.listeCouleurs = listeCouleurs;
 	}
-
+	
+	/*
+	 * Getter de la matrice d'initialisation
+	 */
 	public int[][] getMatriceInit() {
 		return matriceInit;
 	} 
 
+	/**
+	*Initialisation de notre tableau de couleur.
+	*/
 	public Color[] initialiseCouleurs() {
 		Color [] couleurs = new Color [this.nbEtats];
 		couleurs[0]= Color.RED;
@@ -54,10 +79,17 @@ public class GameOfImmigration extends GameOfLife {
 		return couleurs;
 	}
 
+	/*
+	 * Setter de la matrice d'initialisation
+	 * @param matrice
+	 */
 	public void setMatriceInit(int[][] matriceInit) {
 		this.matriceInit = matriceInit;
 	}
-
+	
+	/**
+	*Passage de l'état n à l'état n+1 de la simulation. L'état de chaque cellule est recalculé suivant les règle definies dans le cadre de l'immigration.
+	*/
 	@Override
 	public void move() {
 		int[][] matrice=getMatrice();
@@ -65,12 +97,13 @@ public class GameOfImmigration extends GameOfLife {
 		int size=this.getSize();
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
-				int[]neighbors=voisinsIm(i, j);
+				ArrayList<Integer> neighbors=voisins(i,j);
 				int nbVoisinsEtatSuivant=0;
 				int etatCourant = matricePast[i][j];
 				int etatSuivant = (etatCourant + 1)% nbEtats;
-				for (int k = 0; k < neighbors.length; k++) {
-					if (neighbors[k] == etatSuivant) {
+				for (Iterator<Integer> it = neighbors.iterator(); it.hasNext();) {
+					int etat = it.next();
+					if(etat==etatSuivant) {
 						nbVoisinsEtatSuivant++;
 					}
 				}
@@ -89,7 +122,9 @@ public class GameOfImmigration extends GameOfLife {
 		this.setMatricePast(matricePast);
 	}
 
-
+	/**
+	*Initialisation de la matrice de simulation.
+	*/
 	@Override
 	public void init() {
 		int[][] matrice=getMatrice();
@@ -107,44 +142,10 @@ public class GameOfImmigration extends GameOfLife {
 		this.setMatrice(matrice);
 		this.setMatricePast(matricePast);
 	}
-
-
-	public int[] voisinsIm(int k, int m) {
-		int[][] matricePast=getMatricePast();
-		int[] listeVoisins = new int[8];
-		int size=this.getSize();
-		int kMinus1=k-10;
-		int kPlus1=k+10;
-		int mMinus1=m-10;
-		int mPlus1=m+10;
-
-		if (k==0) {
-			kMinus1=size-10;
-		}
-		else if (k==size-10) {
-			kPlus1=0;
-		}
-		if (m==0) {
-			mMinus1=size-10;
-		}
-		else if(m==size-10) {
-			mPlus1=0;
-		}
-		listeVoisins[0]=matricePast[kMinus1][m];
-        listeVoisins[1]=matricePast[kMinus1][mMinus1];
-        listeVoisins[2]=matricePast[kMinus1][mPlus1];
-        listeVoisins[3]=matricePast[k][mMinus1];
-        listeVoisins[4]=matricePast[k][mPlus1];
-        listeVoisins[5]=matricePast[kPlus1][m];
-        listeVoisins[6]=matricePast[kPlus1][mMinus1];
-        listeVoisins[7]=matricePast[kPlus1][mPlus1];
-		this.setMatricePast(matricePast);
-
-		return listeVoisins;
-	}
-
-
-
+	
+	/*
+	 * Methode appelée pour remettre la simulation dans son etat initial(restart)
+	 */
 	public void reinitialiser() {
 		int[][] matrice=getMatrice();
 		int[][] matricePast=getMatricePast();

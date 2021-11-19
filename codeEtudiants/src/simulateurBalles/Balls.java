@@ -17,7 +17,7 @@ public class Balls {
 	*/
 	private ArrayList<Point> listeBalles;
 	/**
-	*Liste des cooredonnées initiales des balles (dans le cas d'une réinitialisation de leurs coordonnées).
+	*Liste des coordonnées initiales des balles (dans le cas d'une réinitialisation de leurs coordonnées).
 	*/
 	private ArrayList<Point> listeInit;
 	//sensDeTranslation (nom plutot explicite) sert à faire rebondir les balles

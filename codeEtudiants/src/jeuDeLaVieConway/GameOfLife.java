@@ -35,28 +35,46 @@ public class GameOfLife {
 	}
 
 	/**
+	 * Setter de la taille de la matrice
 	*@param size Taille de la matrice de simulation
 	*/
 	public void setSize(int size) {
 		this.size = size;
 	}
 
+	/*
+	 * Getter de la taille de la matrice de simulation
+	 */
 	public int getSize() {
 		return size;
 	}
 
+	/*
+	 * Getter de la matrice de simulation à l'etat n
+	 */
 	public int[][] getMatrice(){
 		return matrice;
 	}
 
+	/*
+	 * Getter de la matrice de simulation à l'etat n-1
+	 */
 	public int[][] getMatricePast() {
 		return matricePast;
 	}
 
+	/*
+	 * Setter de la matrice de simulation à l'etat n-1
+	 * @param matrice 
+	 */
 	public void setMatricePast(int[][] matricePast) {
 		this.matricePast = matricePast;
 	}
 
+	/*
+	 * Setter de la matrice de simulation à l'etat n
+	 * @param matrice 
+	 */
 	public void setMatrice(int[][] matrice) {
 		this.matrice = matrice;
 	}

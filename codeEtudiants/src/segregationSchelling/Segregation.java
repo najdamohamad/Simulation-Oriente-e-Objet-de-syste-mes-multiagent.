@@ -2,6 +2,8 @@ package segregationSchelling;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -13,7 +15,7 @@ public class Segregation extends GameOfImmigration {
 	*/
 	private int seuil;
 	/**
-	*Nombre de couleur prise en compte dans la simulation
+	*Nombre de couleur prises en compte dans la simulation
 	*/
 	private int nbCouleurs;
 	/**
@@ -22,6 +24,12 @@ public class Segregation extends GameOfImmigration {
 	private LinkedList<Point> listesVacants;
 
 
+	/*
+	 * Constructeur de la classe Segregation
+	 * @param size taille de la fenetre graphique
+	 * @param nbCouleurs Nombre de couleurs prises en compte dans la simulation
+	 * @param seuil Seuil de tolerance des cellules
+	 */
 	public Segregation(int size, int nbCouleurs, int seuil) {
 		super();
 		this.seuil = seuil;
@@ -61,11 +69,12 @@ public class Segregation extends GameOfImmigration {
 		int size=this.getSize();
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
-				int[]neighbors=voisinsIm(i, j);
+				ArrayList<Integer> neighbors=voisins(i,j);
 				int nbVoisinsCouleursDifferentes=0;
 				int couleurActuelle = matrice2[i][j];
-				for (int k = 0; k < neighbors.length; k++) {
-					if (couleurActuelle!=0 && neighbors[k]!=couleurActuelle && neighbors[k]!=0) {
+				for (Iterator<Integer> it = neighbors.iterator(); it.hasNext();) {
+					int couleur = it.next();
+					if(couleurActuelle!=0 && couleur!=couleurActuelle && couleur!=0) {
 						nbVoisinsCouleursDifferentes++;
 					}
 				}

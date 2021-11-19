@@ -15,6 +15,7 @@ public class EventManager {
 
 	/*
 	 * Constructeur du gestionnaire des evenements
+	 * initialise une FIFO pour stocker les evenements
 	 */
 	public EventManager() {
 		evenements = new PriorityQueue<Event>();
@@ -29,6 +30,7 @@ public class EventManager {
 	
 	/*
 	 * Ajoute un evenement
+	 * @param e evenement
 	 */
 	public void addEvent(Event e) {
 		evenements.add(e);

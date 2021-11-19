@@ -1,26 +1,31 @@
 package jeuDeLImmigration;
 
+import java.awt.Color;
+
 import event.EventManager;
 import event.GameOfLifeEvent;
 import gui.GUISimulator;
-import gui.Simulable;
 import gui.Rectangle;
-import java.awt.Color;
+import gui.Simulable;
 
 public class GameOfImmigrationSimulator implements Simulable {
 	private GameOfImmigration immigration;
 	GUISimulator gui;
-	private int nbEtats;
 
-
+	/**
+	*@param gui Fenêtre graphique de la simulation.
+	*@param nbEtats Nombre d'etats pris charge par la simulation
+	*/
 	public GameOfImmigrationSimulator(GUISimulator gui, int nbEtats) {
 		this.gui=gui;
-		this.nbEtats=nbEtats;
-		immigration = new GameOfImmigration(gui.getPanelHeight(), this.nbEtats);
+		immigration = new GameOfImmigration(gui.getPanelHeight(), nbEtats);
 		dessiner(gui);
 		EventManager.get().addEvent(new GameOfLifeEvent(0, immigration));
 	}
 
+	/**
+	*Représente les elements de la matrice de simulation dans la fenêtre graphique.
+	*/
 	public void dessiner(GUISimulator gui) {
 		int size = this.immigration.getSize();
 		gui.reset();
@@ -33,12 +38,18 @@ public class GameOfImmigrationSimulator implements Simulable {
 		}
 	}
 
+	/**
+	*Incrémente la simulation d'un pas.
+	*/
 	@Override
 	public void next() {
 		EventManager.get().next();
 		dessiner(gui);
 	}
 
+	/**
+	*Réinitialise la simulation.
+	*/
 	@Override
 	public void restart() {
 		immigration.reinitialiser();
