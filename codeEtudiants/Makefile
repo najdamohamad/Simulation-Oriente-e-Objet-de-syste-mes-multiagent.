@@ -21,7 +21,7 @@
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
 
-all: testGUI testBalls testBallsSimulator testConwaySimulator testImmigrationSimulator testSegregationSimulator testBoidsSimulator testPredateursSimulator testEventManager
+all: testGUI testBalls testBallsSimulator testConwaySimulator testImmigrationSimulator testSegregationSimulator testBoidsSimulator testPredateursSimulator testEnsembleDesFonctions testEventManager
 
 testGUI:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestGUI.java
@@ -44,11 +44,14 @@ testSegregationSimulator:
 testBoidsSimulator:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/boids/TestBoidsSimulator.java
 
+testEventManager:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/event/TestEventManager.java
+
 testPredateursSimulator:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/boids/TestPredateursSimulator.java
 
-testEventManager:
-	javac -d bin -classpath bin/gui.jar -sourcepath src src/event/TestEventManager.java
+testEnsembleDesFonctions:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestEnsembleDesFonctions.java
 
 
 # Execution:
@@ -82,6 +85,9 @@ exePredateursSimulator:
 
 exeEventManager:
 	java -classpath bin:bin/gui.jar event/TestEventManager
+
+exeEnsembleSimulations:
+	java -classpath bin:bin/gui.jar TestEnsembleDesFonctions.java
 
 
 #Documentation
