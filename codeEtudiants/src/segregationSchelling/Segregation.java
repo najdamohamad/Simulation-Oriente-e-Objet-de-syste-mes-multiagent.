@@ -42,13 +42,12 @@ public class Segregation extends GameOfImmigration {
 	@Override
 	public Color[] initialiseCouleurs() {
 		Color[] couleurs = new Color[nbCouleurs+1];
-		couleurs[0]=Color.WHITE;//les maisons vacantes sont en blanc
-		couleurs[1]=Color.RED;
-		couleurs[2]=Color.BLUE;
-		couleurs[3]=Color.BLACK;
-		for (int i = 4; i < couleurs.length; i++) {
-			couleurs[i]=couleurs[i-1].brighter();
+	  couleurs[0]=Color.BLACK;//les maisons vacantes sont en noir
+		Random r = new Random();
+		for(int i=1; i<couleurs.length; i++){
+			couleurs[i]=new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255));
 		}
+
 		return couleurs;
 	}
 
