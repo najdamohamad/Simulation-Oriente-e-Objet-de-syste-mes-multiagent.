@@ -12,21 +12,24 @@ public class GameOfLife {
 	/**
 	*Matrice représentant la simulation à l'instant n.
 	*/
-	private Etat [][] matrice;
+	private int [][] matrice;
 	/**
 	*Matrice représentant la simulation à l'état n-1. On se base sur l'état n-1 pour décrire l'état n.
 	*/
-	private Etat [][] matricePast;
+	private int [][] matricePast;
 
 	/**
 	*@param size Taille de la matrice de simulation
 	*/
 	public GameOfLife(int size) {
 		this.size=size;
-		matrice = new Etat[size][size];
-		matricePast = new Etat[size][size];
+		matrice = new int[size][size];
+		matricePast = new int[size][size];
 	}
-
+	
+	protected static final int VIVANT=1;
+	protected static final int MORT=0;
+	
 	public GameOfLife() {
 		super();
 	}
@@ -42,8 +45,20 @@ public class GameOfLife {
 		return size;
 	}
 
-	public Etat[][] getMatrice(){
+	public int[][] getMatrice(){
 		return matrice;
+	}
+
+	public int[][] getMatricePast() {
+		return matricePast;
+	}
+
+	public void setMatricePast(int[][] matricePast) {
+		this.matricePast = matricePast;
+	}
+
+	public void setMatrice(int[][] matrice) {
+		this.matrice = matrice;
 	}
 
 	/**
@@ -52,28 +67,28 @@ public class GameOfLife {
 	public void move() {
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
-				ArrayList<Etat> neighbors=voisins(i,j);
-				int nbVoisinsVivants=0;
-				for (Iterator<Etat> it = neighbors.iterator(); it.hasNext();) {
-					Etat etat = (Etat) it.next();
-					if(etat==Etat.Vivant) {
-						nbVoisinsVivants++;
+				ArrayList<Integer> neighbors=voisins(i,j);
+				int nbVoisinsVIVANTs=0;
+				for (Iterator<Integer> it = neighbors.iterator(); it.hasNext();) {
+					int etat = it.next();
+					if(etat==VIVANT) {
+						nbVoisinsVIVANTs++;
 					}
 				}
-				if(matricePast[i][j]==Etat.Vivant) {
-					if(nbVoisinsVivants==2 || nbVoisinsVivants==3) {
-						matrice[i][j]=Etat.Vivant;
+				if(matricePast[i][j]==VIVANT) {
+					if(nbVoisinsVIVANTs==2 || nbVoisinsVIVANTs==3) {
+						matrice[i][j]=VIVANT;
 					}
 					else {
-						matrice[i][j] = Etat.Mort;
+						matrice[i][j] = MORT;
 					}
 				}
-				if(matricePast[i][j]==Etat.Mort) {
-					if(nbVoisinsVivants==3) {
-						matrice[i][j]=Etat.Vivant;
+				if(matricePast[i][j]==MORT) {
+					if(nbVoisinsVIVANTs==3) {
+						matrice[i][j]=VIVANT;
 					}
 					else {
-						matrice[i][j] = Etat.Mort;
+						matrice[i][j] = MORT;
 					}
 				}
 			}
@@ -87,21 +102,21 @@ public class GameOfLife {
 	}
 
 	/**
-	*Initialisation de la matrice de simulation. Les cellules initialement vivantes sont choisies selon une forme particulière.
+	*Initialisation de la matrice de simulation. Les cellules initialement VIVANTes sont choisies selon une forme particulière.
 	*/
 	public void init() {
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
-				matricePast[i][j]=Etat.Mort;
-				matrice[i][j]=Etat.Mort;
+				matricePast[i][j]=MORT;
+				matrice[i][j]=MORT;
 			}
 		}
 		//Pour une meilleure visibilité n'utiliser qu'une forme et commenter les autres lignes
 
 		//1st shape ruche modifié aboutissant à 4 ruches
-		firstShape();
+		//firstShape();
 		//2nd shape vaisseau
-		//shipShape();
+		shipShape();
 		//QrCode: bad example it's due to a reference error but it's beautiful enjoy;)
 		//qrCodeShape();
 		//melange du vaisseau et des ruches
@@ -110,86 +125,86 @@ public class GameOfLife {
 	}
 
 	/**
-	*Initialisation possible de l'ensemble des cellules vivantes.
+	*Initialisation possible de l'ensemble des cellules VIVANTes.
 	*/
 	void firstShape() {
-		matrice[(size/2)-10][size/2]=Etat.Vivant;
-		matrice[(size/2)-10][(size/2)+10]=Etat.Vivant;
-		matrice[size/2][(size/2)-10]=Etat.Vivant;
-		matrice[size/2][(size/2)+20]=Etat.Vivant;
-		matrice[(size/2)+10][size/2]=Etat.Vivant;
-		matrice[(size/2)+10][(size/2)+10]=Etat.Vivant;
-		matrice[(size/2)-10][(size/2)+20]=Etat.Vivant;
+		matrice[(size/2)-10][size/2]=VIVANT;
+		matrice[(size/2)-10][(size/2)+10]=VIVANT;
+		matrice[size/2][(size/2)-10]=VIVANT;
+		matrice[size/2][(size/2)+20]=VIVANT;
+		matrice[(size/2)+10][size/2]=VIVANT;
+		matrice[(size/2)+10][(size/2)+10]=VIVANT;
+		matrice[(size/2)-10][(size/2)+20]=VIVANT;
 
-		matricePast[(size/2)-10][size/2]=Etat.Vivant;
-		matricePast[(size/2)-10][(size/2)+10]=Etat.Vivant;
-		matricePast[size/2][(size/2)-10]=Etat.Vivant;
-		matricePast[size/2][(size/2)+20]=Etat.Vivant;
-		matricePast[(size/2)+10][size/2]=Etat.Vivant;
-		matricePast[(size/2)+10][(size/2)+10]=Etat.Vivant;
-		matricePast[(size/2)-10][(size/2)+20]=Etat.Vivant;
+		matricePast[(size/2)-10][size/2]=VIVANT;
+		matricePast[(size/2)-10][(size/2)+10]=VIVANT;
+		matricePast[size/2][(size/2)-10]=VIVANT;
+		matricePast[size/2][(size/2)+20]=VIVANT;
+		matricePast[(size/2)+10][size/2]=VIVANT;
+		matricePast[(size/2)+10][(size/2)+10]=VIVANT;
+		matricePast[(size/2)-10][(size/2)+20]=VIVANT;
 	}
 
 	/**
-	*Initialisation possible de l'ensemble des cellules vivantes.
+	*Initialisation possible de l'ensemble des cellules VIVANTes.
 	*/
 	void shipShape() {
-		matrice[0][0]=Etat.Vivant;
-		matrice[0][10]=Etat.Vivant;
-		matrice[0][20]=Etat.Vivant;
-		matrice[10][0]=Etat.Vivant;
-		matrice[20][10]=Etat.Vivant;
+		matrice[0][0]=VIVANT;
+		matrice[0][10]=VIVANT;
+		matrice[0][20]=VIVANT;
+		matrice[10][0]=VIVANT;
+		matrice[20][10]=VIVANT;
 
-		matricePast[0][0]=Etat.Vivant;
-		matricePast[0][10]=Etat.Vivant;
-		matricePast[0][20]=Etat.Vivant;
-		matricePast[10][0]=Etat.Vivant;
-		matricePast[20][10]=Etat.Vivant;
+		matricePast[0][0]=VIVANT;
+		matricePast[0][10]=VIVANT;
+		matricePast[0][20]=VIVANT;
+		matricePast[10][0]=VIVANT;
+		matricePast[20][10]=VIVANT;
 	}
 
 	/**
-	*Initialisation possible de l'ensemble des cellules vivantes.
+	*Initialisation possible de l'ensemble des cellules VIVANTes.
 	*/
 	void qrCodeShape() {
-		matrice[(size/2)-10][size/2]=Etat.Vivant;
-		matrice[(size/2)-10][(size/2)+10]=Etat.Vivant;
-		matrice[size/2][(size/2)-10]=Etat.Vivant;
-		matrice[size/2][(size/2)+20]=Etat.Vivant;
-		matrice[(size/2)+10][size/2]=Etat.Vivant;
-		matrice[(size/2)+10][(size/2)+10]=Etat.Vivant;
-		matrice[(size/2)-10][(size/2)+20]=Etat.Vivant;
+		matrice[(size/2)-10][size/2]=VIVANT;
+		matrice[(size/2)-10][(size/2)+10]=VIVANT;
+		matrice[size/2][(size/2)-10]=VIVANT;
+		matrice[size/2][(size/2)+20]=VIVANT;
+		matrice[(size/2)+10][size/2]=VIVANT;
+		matrice[(size/2)+10][(size/2)+10]=VIVANT;
+		matrice[(size/2)-10][(size/2)+20]=VIVANT;
 		matricePast=matrice;
 	}
 
 	/**
-	*Initialisation possible de l'ensemble des cellules vivantes.
+	*Initialisation possible de l'ensemble des cellules VIVANTes.
 	*/
 	void fourthShape() {
 		firstShape();
-		matrice[0][150]=Etat.Vivant;
-        matrice[0][140]=Etat.Vivant;
-        matrice[10][130]=Etat.Vivant;
-        matrice[20][120]=Etat.Vivant;
-        matrice[30][130]=Etat.Vivant;
-        matrice[40][130]=Etat.Vivant;
-        matrice[50][140]=Etat.Vivant;
-        matrice[50][150]=Etat.Vivant;
-        matrice[40][160]=Etat.Vivant;
-        matrice[30][170]=Etat.Vivant;
-        matrice[20][160]=Etat.Vivant;
+		matrice[0][150]=VIVANT;
+        matrice[0][140]=VIVANT;
+        matrice[10][130]=VIVANT;
+        matrice[20][120]=VIVANT;
+        matrice[30][130]=VIVANT;
+        matrice[40][130]=VIVANT;
+        matrice[50][140]=VIVANT;
+        matrice[50][150]=VIVANT;
+        matrice[40][160]=VIVANT;
+        matrice[30][170]=VIVANT;
+        matrice[20][160]=VIVANT;
 
 
-        matricePast[0][150]=Etat.Vivant;
-        matricePast[0][140]=Etat.Vivant;
-        matricePast[10][130]=Etat.Vivant;
-        matricePast[20][120]=Etat.Vivant;
-        matricePast[30][130]=Etat.Vivant;
-        matricePast[40][130]=Etat.Vivant;
-        matricePast[50][140]=Etat.Vivant;
-        matricePast[50][150]=Etat.Vivant;
-        matricePast[40][160]=Etat.Vivant;
-        matricePast[30][170]=Etat.Vivant;
-        matricePast[20][160]=Etat.Vivant;
+        matricePast[0][150]=VIVANT;
+        matricePast[0][140]=VIVANT;
+        matricePast[10][130]=VIVANT;
+        matricePast[20][120]=VIVANT;
+        matricePast[30][130]=VIVANT;
+        matricePast[40][130]=VIVANT;
+        matricePast[50][140]=VIVANT;
+        matricePast[50][150]=VIVANT;
+        matricePast[40][160]=VIVANT;
+        matricePast[30][170]=VIVANT;
+        matricePast[20][160]=VIVANT;
 	}
 
 	/**
@@ -197,9 +212,9 @@ public class GameOfLife {
 	*@param k Ligne de la cellule dont on cherche les voisins.
 	*@param m Colone de la cellule dont on cherche les voisins.
 	*/
-	public ArrayList<Etat> voisins(int k, int m) {
+	public ArrayList<Integer> voisins(int k, int m) {
 
-		ArrayList<Etat> listeVoisins = new ArrayList<Etat>();
+		ArrayList<Integer> listeVoisins = new ArrayList<Integer>();
 
 		int kMinus1=k-10;
 		int kPlus1=k+10;

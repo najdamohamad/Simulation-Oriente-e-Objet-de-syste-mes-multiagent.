@@ -26,7 +26,7 @@ public class GameOfImmigrationSimulator implements Simulable {
 		gui.reset();
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
-				int k=this.immigration.getMatriceIm()[i][j];
+				int k=this.immigration.getMatrice()[i][j];
 				Color couleur = immigration.getListeCouleurs()[k];
 				gui.addGraphicalElement(new Rectangle(i,j,couleur,couleur,10));
 			}

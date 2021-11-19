@@ -31,7 +31,7 @@ public class SegregationSimulator implements Simulable {
 		gui.reset();
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
-				int k=this.schelling.getMatriceIm()[i][j];
+				int k=this.schelling.getMatrice()[i][j];
 				Color couleur = schelling.getListeCouleurs()[k];
 				gui.addGraphicalElement(new Rectangle(i,j,couleur,couleur,10));
 			}

@@ -8,8 +8,6 @@ import jeuDeLaVieConway.GameOfLife;
 
 public class GameOfImmigration extends GameOfLife {
 	private int nbEtats;
-	private int[][] matriceIm;
-	private int[][] matriceImPast;
 	private int[][] matriceInit;
 	private Color[] listeCouleurs;
 
@@ -17,8 +15,6 @@ public class GameOfImmigration extends GameOfLife {
 	public GameOfImmigration(int size, int nbEtats) {
 		super(size);
 		this.nbEtats = nbEtats;
-		matriceIm = new int[size][size];
-		matriceImPast = new int[size][size];
 		matriceInit = new int[size][size];
 		listeCouleurs= initialiseCouleurs();
 		this.init();
@@ -33,22 +29,6 @@ public class GameOfImmigration extends GameOfLife {
 
 	public void setNbEtats(int nbEtats) {
 		this.nbEtats = nbEtats;
-	}
-
-	public int[][] getMatriceIm() {
-		return matriceIm;
-	}
-
-	public void setMatriceIm(int[][] matriceIm) {
-		this.matriceIm = matriceIm;
-	}
-
-	public int[][] getMatriceImPast() {
-		return matriceImPast;
-	}
-
-	public void setMatriceImPast(int[][] matriceImPast) {
-		this.matriceImPast = matriceImPast;
 	}
 
 	public Color[] getListeCouleurs() {
@@ -80,12 +60,14 @@ public class GameOfImmigration extends GameOfLife {
 
 	@Override
 	public void move() {
+		int[][] matrice=getMatrice();
+		int[][] matricePast=getMatricePast();
 		int size=this.getSize();
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
 				int[]neighbors=voisinsIm(i, j);
 				int nbVoisinsEtatSuivant=0;
-				int etatCourant = matriceImPast[i][j];
+				int etatCourant = matricePast[i][j];
 				int etatSuivant = (etatCourant + 1)% nbEtats;
 				for (int k = 0; k < neighbors.length; k++) {
 					if (neighbors[k] == etatSuivant) {
@@ -93,35 +75,42 @@ public class GameOfImmigration extends GameOfLife {
 					}
 				}
 				if (nbVoisinsEtatSuivant>=3) {
-					matriceIm[i][j]=etatSuivant;
+					matrice[i][j]=etatSuivant;
 				}
 			}
 		}
 		//on met à jour matriceImPast
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
-				matriceImPast[i][j]=matriceIm[i][j];
+				matricePast[i][j]=matrice[i][j];
 			}
 		}
+		this.setMatrice(matrice);
+		this.setMatricePast(matricePast);
 	}
 
 
 	@Override
 	public void init() {
+		int[][] matrice=getMatrice();
+		int[][] matricePast=getMatricePast();
 		int taille=this.getSize();
 		for (int i = 0; i < taille; i+=10) {
 			for (int j = 0; j < taille; j+=10) {
 				Random random = new Random();
 				int etat = random.nextInt(nbEtats);
-				matriceIm[i][j]=etat;
-				matriceImPast[i][j]=etat;
+				matrice[i][j]=etat;
+				matricePast[i][j]=etat;
 				matriceInit[i][j]=etat;
 			}
 		}
+		this.setMatrice(matrice);
+		this.setMatricePast(matricePast);
 	}
 
 
 	public int[] voisinsIm(int k, int m) {
+		int[][] matricePast=getMatricePast();
 		int[] listeVoisins = new int[8];
 		int size=this.getSize();
 		int kMinus1=k-10;
@@ -141,14 +130,15 @@ public class GameOfImmigration extends GameOfLife {
 		else if(m==size-10) {
 			mPlus1=0;
 		}
-		listeVoisins[0]=matriceImPast[kMinus1][m];
-        listeVoisins[1]=matriceImPast[kMinus1][mMinus1];
-        listeVoisins[2]=matriceImPast[kMinus1][mPlus1];
-        listeVoisins[3]=matriceImPast[k][mMinus1];
-        listeVoisins[4]=matriceImPast[k][mPlus1];
-        listeVoisins[5]=matriceImPast[kPlus1][m];
-        listeVoisins[6]=matriceImPast[kPlus1][mMinus1];
-        listeVoisins[7]=matriceImPast[kPlus1][mPlus1];
+		listeVoisins[0]=matricePast[kMinus1][m];
+        listeVoisins[1]=matricePast[kMinus1][mMinus1];
+        listeVoisins[2]=matricePast[kMinus1][mPlus1];
+        listeVoisins[3]=matricePast[k][mMinus1];
+        listeVoisins[4]=matricePast[k][mPlus1];
+        listeVoisins[5]=matricePast[kPlus1][m];
+        listeVoisins[6]=matricePast[kPlus1][mMinus1];
+        listeVoisins[7]=matricePast[kPlus1][mPlus1];
+		this.setMatricePast(matricePast);
 
 		return listeVoisins;
 	}
@@ -156,13 +146,17 @@ public class GameOfImmigration extends GameOfLife {
 
 
 	public void reinitialiser() {
+		int[][] matrice=getMatrice();
+		int[][] matricePast=getMatricePast();
 		int size=this.getSize();
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
-				matriceIm[i][j]=matriceInit[i][j];
-				matriceImPast[i][j]=matriceInit[i][j];
+				matrice[i][j]=matriceInit[i][j];
+				matricePast[i][j]=matriceInit[i][j];
 			}
 		}
+		this.setMatrice(matrice);
+		this.setMatricePast(matricePast);
 	}
 
 }

@@ -11,7 +11,10 @@ import java.awt.Color;
 public class GameOfLifeSimulator implements Simulable {
 	private GameOfLife conway;
 	GUISimulator gui;
-
+	
+	protected static final int VIVANT=1;
+	protected static final int MORT=0;
+	
 	/**
 	*@param gui Fenetre graphique du simulateur.
 	*/
@@ -30,7 +33,7 @@ public class GameOfLifeSimulator implements Simulable {
 		gui.reset();
 		for (int i = 0; i < conway.getSize(); i+=10) {
 			for (int j = 0; j < conway.getSize(); j+=10) {
-				if(conway.getMatrice()[i][j]==Etat.Vivant) {
+				if(conway.getMatrice()[i][j]==VIVANT) {
 					gui.addGraphicalElement(new Rectangle(i,j,Color.BLUE,Color.BLUE,10));
 				}
 			}

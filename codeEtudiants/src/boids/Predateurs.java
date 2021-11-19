@@ -10,7 +10,7 @@ import gui.GUISimulator;
 
 /**
  * 
- * Cette classe Predateurs sert mettre en place une simulation de la cohabitation
+ * Cette classe Predateurs sert à mettre en place une simulation de la cohabitation
  * entre deux groupes de boids differents: des predateurs et des proies
  *
  */

@@ -29,8 +29,8 @@ public class Segregation extends GameOfImmigration {
 		listesVacants= new LinkedList<Point>();
 		this.setNbEtats(nbCouleurs+1);
 		this.setSize(size);
-		this.setMatriceIm(new int[size][size]);
-		this.setMatriceImPast(new int[size][size]);
+		this.setMatrice(new int[size][size]);
+		this.setMatricePast(new int[size][size]);
 		this.setMatriceInit(new int[size][size]);
 		this.setListeCouleurs(initialiseCouleurs());
 		this.init();
@@ -42,7 +42,7 @@ public class Segregation extends GameOfImmigration {
 	@Override
 	public Color[] initialiseCouleurs() {
 		Color[] couleurs = new Color[nbCouleurs+1];
-	  couleurs[0]=Color.BLACK;//les maisons vacantes sont en noir
+	  couleurs[0]=Color.WHITE;//les maisons vacantes sont en blanc
 		Random r = new Random();
 		for(int i=1; i<couleurs.length; i++){
 			couleurs[i]=new Color(r.nextInt(255),r.nextInt(255),r.nextInt(255));
@@ -56,8 +56,8 @@ public class Segregation extends GameOfImmigration {
 	*/
 	@Override
 	public void move() {
-		int[][] matrice1= this.getMatriceIm();
-		int[][] matrice2= this.getMatriceImPast();
+		int[][] matrice1= this.getMatrice();
+		int[][] matrice2= this.getMatricePast();
 		int size=this.getSize();
 		for (int i = 0; i < size; i+=10) {
 			for (int j = 0; j < size; j+=10) {
@@ -83,8 +83,8 @@ public class Segregation extends GameOfImmigration {
 				matrice2[i][j]=matrice1[i][j];
 			}
 		}
-		this.setMatriceIm(matrice1);
-		this.setMatriceImPast(matrice2);
+		this.setMatrice(matrice1);
+		this.setMatricePast(matrice2);
 	}
 
 	/**
@@ -93,8 +93,8 @@ public class Segregation extends GameOfImmigration {
 	@Override
 	public void init() {
 		while (listesVacants.size()<50 ) {
-			int [][] matrice1=this.getMatriceIm();
-			int [][] matrice2=this.getMatriceImPast();
+			int [][] matrice1=this.getMatrice();
+			int [][] matrice2=this.getMatricePast();
 			int [][] matrice3=this.getMatriceInit();
 			int taille=this.getSize();
 			for (int i = 0; i < taille; i+=10) {
@@ -109,8 +109,8 @@ public class Segregation extends GameOfImmigration {
 					}
 				}
 			}
-			this.setMatriceIm(matrice1);
-			this.setMatriceImPast(matrice2);
+			this.setMatrice(matrice1);
+			this.setMatricePast(matrice2);
 			this.setMatriceInit(matrice3);
 		}
 	}
