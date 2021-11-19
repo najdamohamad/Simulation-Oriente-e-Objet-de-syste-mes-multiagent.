@@ -1,13 +1,147 @@
 Ensimag 2A POO - TPL
+Groupe 64
 ============================
 
-- src: contient les dossier des classes utiles aux différentes simulations
+DESCRIPTIF DES DOSSIERS ET FICHIERS DU REPERTOIRE:
 
-  -> TestGUI.java : cree une fenetre graphique "Invaders", pas de simulation
-  Et c'est tout, en fait!
+  - src: contient les dossier des classes utiles aux différentes simulations
 
-- bin/gui.jar: archive Java contenant les classes de l'interface graphique. Voir un exemple d'utilisation dans TestGUI.java
+    -> TestGUI.java : cree une fenetre graphique "Invaders", pas de simulation
+    Et c'est tout, en fait!
 
-- doc_gui: la documentation (API) des classes de l'interface graphique contenues dans gui.jar. Point d'entrée: index.html
+    -> Les dossiers suivant englobent les différentes parties du sujet:
+        |-> simulateurBalles : dossier concernant la simulation de balles.
+            |-> Balls.java : class Balls (partie calcul des balles).
+            |-> BallsSimulateur.java : class BallsSimulator (partie simulation graphique des balles).
+            |-> TestBalls.java : Créé un ensemble de 1 balle, la fait translater et la reinitialise.
+            |-> TestBallsSimulator : Simule, dans une interface graphique le mouvement d'une ensemble de balles.
+                                     Les balles rebondissent sur les paroies de la zone définie.
 
-- Makefile: quelques explications sur la compilation en ligne, notamment la notion de classpath et l'utilisation de ihm.jar
+        |-> jeuDeLaVieConway : dossier concernant la simulation du jeu de la vie de Conway.
+            |-> Etat.java : enumération d'un ensemble d'états possibles.
+            |-> GameOfLife.java : class GameOfLife (partie calcul du jeu de la vie).
+            |-> GameOfLifeSimulator.java : class GameOfLifeSimulator (partie simulation graphique du jeu de la vie).
+            |-> TestGameOfLifeSimulator : Simule, dans une interface graphique le jeu de la vie de Conway.
+                                          Les cellules apparaissent dans deux couleurs :
+                                             -Une celule blanche est morte.
+                                             -Une celule bleue est vivante.
+
+        |-> jeuDeLImmigration : dossier concernant la simulation du jeu de l'immigration.
+            |-> GameOfImmigration.java : class GameOfImmigration (partie calcul du jeu de l'immigration).
+            |-> GameOfImmigrationSimulator.java : class GameOfImmigrationSimulator (partie simulation graphique du jeu de l'immigration).
+            |-> TestGameOfImmigrationSimulator : Simule, dans une interface graphique le jeu de l'immigration.
+                                                 Les cellules apparaissent dans différentes couleurs : chaque couleur correspond à un état différent pour une cellule
+
+        |-> segregationSchelling : dossier concernant la simulation de la ségrégation selon le model de Schelling.
+            |-> Segregation.java : class Segregation (partie calcul du model de ségrégation).
+            |-> SegregationSimulator.java : class SegregationSimulator (partie simulation graphique du model de ségégation).
+            |-> TestSegregationSimulator : Simule, dans une interface graphique le modèle de ségrégation.
+
+
+        |-> boids : dossier concernant la simulation d'unensemble de boids.
+            |-> Boids.java : class Boids (partie calcul de la modélisation des boids).
+            |-> BoidsSimulator.java : class BoidsSimulator (partie simulation graphique de la modélisation des boids).
+            |-> TestSegregationSimulator : Simule, dans une interface graphique nos boids.
+                                           Les boids se déplacent suivant un ensemble de règles prédéfinies.
+
+        |-> event : A COMPLETER
+
+
+  - bin/gui.jar: archive Java contenant les classes de l'interface graphique. Voir un exemple d'utilisation dans TestGUI.java
+
+  - doc_gui: la documentation (API) des classes de l'interface graphique contenues dans gui.jar. Point d'entrée: index.html
+
+  - Makefile: Ensemble des commandes à effectuer pour:
+                |-> Compiler les sources.
+                |-> Lancer l'execution des simulations.
+                |-> Générer la docs java de nos sources (en.html).
+
+  - docs: Ensemble de la documentation java des sources du repertoire src.
+          (s'obtient après make docs, cf plus loin)
+
+
+LANCEMENT D'UN PROGRAMME DE TEST: DIFFERENTES OPTIONS
+
+    (1) Compiler l'ensemble des sources avec la commande de compilation générale (décrite ci-dessous).
+        Executer le test choisi avec la commande d'execution relative (décrite ci-dessous).
+
+    (2) Compiler la source nécessaire uniquement avec la commande particulière relative à la source (décrite ci-dessous).
+        Executer le test choisi avec la commande d'execution relative (décrite ci-dessous).
+
+
+COMMANDE DE GENERATION DE LA DOCUMENTATION JAVA:
+
+    - Commande générale : make docs
+        |-> Cette commande génère l'intégralité de la doc des sources contenues dans src/
+
+    - Commande particulières:
+        |-> make docsSimulateurBalles
+            |-> Génère la docs relative aux fichiers de src/simulateurBalles.
+
+        |-> make docsConway
+            |-> Génère la docs relative aux fichiers de src/jeuDeLaVieConway.
+
+        |-> make docsImmigration
+            |-> Génère la docs relative aux fichiers de src/jeuDeLImmigration.
+
+        |-> make docsSegregation
+            |-> Génère la docs relative aux fichiers de src/segregationSchelling.
+
+        |-> make docsBoids
+            |-> Génère la docs relative aux fichiers de src/boids.
+
+        |-> make docsEvent
+            |-> Génère la docs relative aux fichiers de src/event.
+
+
+
+COMMANDE DE COMPILATION:
+
+    - Commande générale : make
+        |-> Cette commande compile l'intégralité des sources contenues dans src/
+
+    - Commande particulières:
+        |-> make testBalls
+            |-> Compile testBalls.java.
+
+        |-> make testBallsSimulateur
+            |-> Compile testBallsSimulator.java.
+
+        |-> make testConwaySimulator
+            |-> Compile le test relatif au simulateur du jeu de la vie de Conway.
+
+        |-> make testImmigrationSimulator
+            |-> Compile le test relatif au simulateur du jeu de l'immigration.
+
+        |-> make testSegregationSimulator
+            |-> Compile le test relatif au simulateur du modèle de ségrégation de Schelling.
+
+        |-> make testBoidsSimulator
+            |-> Compile le test relatif au simulateur de boids.
+
+        |-> make testEventManager
+            |-> Compile le test relatif a l'event manager.
+
+
+COMMANDE D'EXECUTION:
+
+        |-> make exeBalls
+            |-> Execute le test des Balls.
+
+        |-> make exeBallsSimulateur
+            |-> Execute la simulation des Balls.
+
+        |-> make exeConwaySimulator
+            |-> Execute la simulation du jeu de la vie de Conway.
+
+        |-> make exeImmigrationSimulator
+            |-> Execute la simulation du jeu de l'immigration.
+
+        |-> make exeSegregationSimulator
+            |-> Execute la simulation du modèle de ségrégation de Schelling.
+
+        |-> make exeBoidsSimulator
+            |-> Execute la simulation des Boids.
+
+        |-> make exeEventManager
+            |-> A COMPLETER
