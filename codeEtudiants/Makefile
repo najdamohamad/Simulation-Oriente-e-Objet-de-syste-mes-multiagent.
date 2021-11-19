@@ -44,6 +44,9 @@ testSegregationSimulator:
 testBoidsSimulator:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/boids/TestBoidsSimulator.java
 
+testPredateursSimulator:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/boids/TestPredateursSimulator.java
+
 testEventManager:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/event/TestEventManager.java
 
@@ -73,6 +76,9 @@ exeSegregationSimulator:
 
 exeBoidsSimulator:
 	java -classpath bin:bin/gui.jar boids/TestBoidsSimulator
+
+exePredateursSimulator:
+	java -classpath bin:bin/gui.jar boids/TestPredateursSimulator
 
 exeEventManager:
 	java -classpath bin:bin/gui.jar event/TestEventManager
