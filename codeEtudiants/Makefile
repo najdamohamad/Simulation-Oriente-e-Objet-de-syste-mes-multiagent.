@@ -77,5 +77,28 @@ exeBoidsSimulator:
 exeEventManager:
 	java -classpath bin:bin/gui.jar event/TestEventManager
 
+
+#Documentation
+docs: docsSimulateurBalles docsConway docsImmigration docsSegregation  docsBoids docsEvent
+
+docsSimulateurBalles:
+	javadoc -d docs -classpath bin/gui.jar -sourcepath src src/simulateurBalles/*.java
+
+docsConway:
+	javadoc -d docs -classpath bin/gui.jar -sourcepath src src/jeuDeLaVieConway/*.java
+
+docsImmigration:
+	javadoc -d docs -classpath bin/gui.jar -sourcepath src src/jeuDeLImmigration/*.java
+
+docsSegregation:
+	javadoc -d docs -classpath bin/gui.jar -sourcepath src src/segregationSchelling/*.java
+
+docsBoids:
+	javadoc -d docs -classpath bin/gui.jar -sourcepath src src/boids/*.java
+
+docsEvent:
+	javadoc -d docs -classpath bin/gui.jar -sourcepath src src/event/*.java
+
+
 clean:
-	rm -rf bin/*.class bin/simulateurBalles/*.class bin/jeuDeLaVieConway/*.class bin/jeuDeLImmigration/*.class bin/segregationSchelling/*.class bin/boids/*.class bin/event/*.class  
+	rm -rf bin/*.class bin/simulateurBalles/*.class bin/jeuDeLaVieConway/*.class bin/jeuDeLImmigration/*.class bin/segregationSchelling/*.class bin/boids/*.class bin/event/*.class docs/*
