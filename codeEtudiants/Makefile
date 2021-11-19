@@ -101,4 +101,4 @@ docsEvent:
 
 
 clean:
-	rm -rf bin/*.class bin/simulateurBalles/*.class bin/jeuDeLaVieConway/*.class bin/jeuDeLImmigration/*.class bin/segregationSchelling/*.class bin/boids/*.class bin/event/*.class docs/*
+	rm -rf bin/*.class bin/simulateurBalles/*.class bin/jeuDeLaVieConway/*.class bin/jeuDeLImmigration/*.class bin/segregationSchelling/*.class bin/boids/*.class bin/event/*.class docs
