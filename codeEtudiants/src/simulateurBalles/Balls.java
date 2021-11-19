@@ -34,6 +34,8 @@ public class Balls {
 
 	/**
 	*Constructeur d'un ensemble de "nb" balles.
+	*@param tailleX Hauteur de la zone d'évolution des mobiles.
+	*@param tailleY Largeur de la zone d'évolution des mobiles.
 	*/
 	public Balls(int nb, int tailleX, int tailleY) {
 		this.listeBalles = new ArrayList<Point>();
@@ -102,7 +104,9 @@ public class Balls {
 	}
 
 	/**
-	*Fait translater les balles dans le sens de leur deplacement de "dx" en abscisse et "dy" en ordonnée.
+	*Fait translater les balles dans le sens de leur deplacement.
+	*@param dx Déplacement absolu vertical.
+	*@param dy Déplacement absolu horizontal.
 	*/
 	public void translate(int dx, int dy) {
 		int i=0;

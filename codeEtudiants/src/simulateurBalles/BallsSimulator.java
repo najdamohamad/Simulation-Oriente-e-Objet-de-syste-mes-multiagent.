@@ -16,6 +16,8 @@ public class BallsSimulator implements Simulable{
 
 	/**
 	*Constructeur du simulateur de balles. L'ensemble sera composé de "nombre" balles et affiché dans la fenêtre graphique "gui".
+	*@param nombre Nombre de mobile de la simulation.
+	*@param gui Fenêtre graphique de la simulation.
 	*/
 	public BallsSimulator(int nombre,GUISimulator gui) {
 		this.gui=gui;
