@@ -14,35 +14,39 @@ DESCRIPTIF DES DOSSIERS ET FICHIERS DU REPERTOIRE:
             |-> Balls.java : class Balls (partie calcul des balles).
             |-> BallsSimulateur.java : class BallsSimulator (partie simulation graphique des balles).
             |-> TestBalls.java : Créé un ensemble de 1 balle, la fait translater et la reinitialise.
-            |-> TestBallsSimulator : Simule, dans une interface graphique le mouvement d'une ensemble de balles.
-                                     Les balles rebondissent sur les paroies de la zone définie.
+            |-> TestBallsSimulator.java : Simule, dans une interface graphique le mouvement d'une ensemble de balles.
+                                          Les balles rebondissent sur les paroies de la zone définie.
 
         |-> jeuDeLaVieConway : dossier concernant la simulation du jeu de la vie de Conway.
             |-> Etat.java : enumération d'un ensemble d'états possibles.
             |-> GameOfLife.java : class GameOfLife (partie calcul du jeu de la vie).
             |-> GameOfLifeSimulator.java : class GameOfLifeSimulator (partie simulation graphique du jeu de la vie).
-            |-> TestGameOfLifeSimulator : Simule, dans une interface graphique le jeu de la vie de Conway.
-                                          Les cellules apparaissent dans deux couleurs :
-                                             -Une celule blanche est morte.
-                                             -Une celule bleue est vivante.
+            |-> TestGameOfLifeSimulator.java : Simule, dans une interface graphique le jeu de la vie de Conway.
+                                               Les cellules apparaissent dans deux couleurs :
+                                                  -Une celule blanche est morte.
+                                                  -Une celule bleue est vivante.
 
         |-> jeuDeLImmigration : dossier concernant la simulation du jeu de l'immigration.
             |-> GameOfImmigration.java : class GameOfImmigration (partie calcul du jeu de l'immigration).
             |-> GameOfImmigrationSimulator.java : class GameOfImmigrationSimulator (partie simulation graphique du jeu de l'immigration).
-            |-> TestGameOfImmigrationSimulator : Simule, dans une interface graphique le jeu de l'immigration.
-                                                 Les cellules apparaissent dans différentes couleurs : chaque couleur correspond à un état différent pour une cellule
+            |-> TestGameOfImmigrationSimulator.java : Simule, dans une interface graphique le jeu de l'immigration.
+                                                      Les cellules apparaissent dans différentes couleurs : chaque couleur correspond à un état différent pour une cellule
 
         |-> segregationSchelling : dossier concernant la simulation de la ségrégation selon le model de Schelling.
             |-> Segregation.java : class Segregation (partie calcul du model de ségrégation).
             |-> SegregationSimulator.java : class SegregationSimulator (partie simulation graphique du model de ségégation).
-            |-> TestSegregationSimulator : Simule, dans une interface graphique le modèle de ségrégation.
+            |-> TestSegregationSimulator.java : Simule, dans une interface graphique le modèle de ségrégation.
 
 
         |-> boids : dossier concernant la simulation d'unensemble de boids.
             |-> Boids.java : class Boids (partie calcul de la modélisation des boids).
             |-> BoidsSimulator.java : class BoidsSimulator (partie simulation graphique de la modélisation des boids).
-            |-> TestSegregationSimulator : Simule, dans une interface graphique nos boids.
-                                           Les boids se déplacent suivant un ensemble de règles prédéfinies.
+            |-> TestSegregationSimulator.java : Simule, dans une interface graphique nos boids.
+                                                Les boids se déplacent suivant un ensemble de règles prédéfinies.
+            |-> Predateurs.java : class Predateurs (Boids particuliers)(partie calcul de la modélisation des prédateurs).
+            |-> PredateursSimulator.java : classe PredateursSimulator (partie simulation graphique de la modélisation des prédateurs).
+            |-> TestPredateursSimulator.java : Simule, dans une interface graphique deux ensembles de boids: des proies et des prédateurs.
+                                               Les deux types de boids se déplacent suivant un ensemble de règles prédéfinies.
 
         |-> event : A COMPLETER
 
@@ -119,6 +123,9 @@ COMMANDE DE COMPILATION:
         |-> make testBoidsSimulator
             |-> Compile le test relatif au simulateur de boids.
 
+        |-> make testPredateursSimulator
+            |-> Compile le test relatif au simulateur de boids proies/prédateurs.
+
         |-> make testEventManager
             |-> Compile le test relatif a l'event manager.
 
@@ -142,6 +149,9 @@ COMMANDE D'EXECUTION:
 
         |-> make exeBoidsSimulator
             |-> Execute la simulation des Boids.
+
+        |-> make exePredateursSimulator
+            |-> Execute la simulation des Boids proies/prédateurs.
 
         |-> make exeEventManager
             |-> A COMPLETER
