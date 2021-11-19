@@ -1,83 +1,174 @@
 package boids;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
 
-import gui.GUISimulator;
-import gui.Oval;
-import gui.Simulable;
 import simulateurBalles.Balls;
 
 public class Boids extends Balls {
+	private int nombresBoids;
+	//vecteurs correspondants aux differentes regles
 	private Vector<Point> vitesses;
 	private Vector<Point> vectorRule1;
 	private Vector<Point> vectorRule2;
 	private Vector<Point> vectorRule3;
+	// type is useful for the Predator/Prey mode
+	//c'est dans type que l'on stocke la nature des boids
+	private int[] type;
+	protected static final int DISTANCE_MIN =20;
+	protected static final int SPEED_LIMIT =20;
 
-	//GUISimulator gui;
 
-
-
+	
 	public Boids(int nombre, int tailleX, int tailleY) {
-		super(nombre, tailleX, tailleY);
+		super(nombre,tailleX,tailleY);
+		nombresBoids=nombre;
 		vitesses=new Vector<Point>();
 		vectorRule1=new Vector<Point>();
 		vectorRule2=new Vector<Point>();
 		vectorRule3=new Vector<Point>();
-		//this.gui=gui;
+		type = new int[nombresBoids];
+	}
+	
+	/**Les classes filles de Boids vont override la fonction init() 
+	 * Dans les constructeurs des classes filles le superConstructor est le premier
+	 * à etre appelé si on n'en avait mis qu'un seul avec le init inclus
+	 * n'aura pas tous les elements necessaires lors de son appel c'estpour ça que l'on met
+	 * en place une surcharge du constructeur
+	 */
+	public Boids(int nombre, int tailleX, int tailleY, int bool) {
+		this(nombre,tailleX,tailleY);
 		init();
 	}
+	/*
+	 * Getter du vecteur Vitesses
+	 */
+	public Vector<Point> getVitesses() {
+		return vitesses;
+	}
+	/*
+	 * Setter du vecteur Vitesses
+	 */
+	public void setVitesses(Vector<Point> vitesses) {
+		this.vitesses = vitesses;
+	}
+	/*
+	 * Getter du vecteur de la Regle1; celle pour la cohesion du groupe
+	 */
+	public Vector<Point> getVectorRule1() {
+		return vectorRule1;
+	}
+	/*
+	 * Setter du vecteur de la Regle1; celle pour la cohesion du groupe 
+	 */
+	public void setVectorRule1(Vector<Point> vectorRule1) {
+		this.vectorRule1 = vectorRule1;
+	}
+	
+	/*
+	 * Getter du vecteur de la Regle2; celle pour l'alignement du groupe
+	 */
+	public Vector<Point> getVectorRule2() {
+		return vectorRule2;
+	}
+	/*
+	 * Setter du vecteur de la Regle2; celle pour l'alignement du groupe
+	 */
+	public void setVectorRule2(Vector<Point> vectorRule2) {
+		this.vectorRule2 = vectorRule2;
+	}
+	
+	/*
+	 * Getter du vecteur de la Regle3; celle qui evite les collisions entre les boids 
+	 */
+	public Vector<Point> getVectorRule3() {
+		return vectorRule3;
+	}
+	
+	/*
+	 * Setter du vecteur de la Regle3; celle qui evite les collisions entre les boids
+	 */
+	public void setVectorRule3(Vector<Point> vectorRule3) {
+		this.vectorRule3 = vectorRule3;
+	}
+	
+	/*
+	 * Getter du tableau où sont indiqués la nature(proie ou predateur) des boids
+	 */
+	public int[] getType() {
+		return type;
+	}
+	/*
+	 * Setter du tableau où sont indiqués la nature(proie ou predateur) des boids
+	 */
+	public void setType(int[] type) {
+		this.type = type;
+	}
 
+	/**Initialise the boids positions*/
 	@Override
 	public void init() {
 		ArrayList<Point> listeBoids = getListeBalles();
 		ArrayList<Point> initList=new ArrayList<Point>();
 		Random r = new Random();
-		for (int i = 0; i < nombre; i++) {
-			Point p = new Point(r.nextInt(this.tailleDeLaFenetreX),r.nextInt(tailleDeLaFenetreY));
+		for (int i = 0; i < nombresBoids; i++) {
+			Point p = new Point(r.nextInt(this.tailleDeLaFenetreX),r.nextInt(this.tailleDeLaFenetreY));
 			listeBoids.add(p);
 			initList.add(new Point(p.x,p.y));
 			vitesses.add(i, new Point());
 			vectorRule1.add(i, new Point());
 			vectorRule2.add(i, new Point());
 			vectorRule3.add(i, new Point());
+			type[i]=0;
 		}
 		setListeBalles(listeBoids);
 		setListeInit(initList);
 	}
+	
+	/*
+	 * Getter du nombre de boids
+	 */
+	public int getNombresBoids() {
+		return nombresBoids;
+	}
 
-
-	void rule1(int indice) {
+	/**Boids try to fly towards the centre of mass of neighbouring boids of the same type*/
+	protected void rule1(int indice) {
 		Point positionCentre=new Point();
 		int index=0;
 		ArrayList<Point> ballsListe=getListeBalles();
 		Iterator<Point> it = ballsListe.iterator();
 		int positionx=0,positiony=0;
+		int nombreBoidsSimilaires=0;
+		int typeBoid=type[indice];
 		while(it.hasNext()) {
 			Point boid = it.next();
-			if(index!=indice) {
+			if(index!=indice && (type[index]==typeBoid)) {
 				positionCentre.x+=boid.x;
 				positionCentre.y+=boid.y;
+				nombreBoidsSimilaires++;
 			}
-			else {
+			else if(index==indice){
 				positionx=boid.x;
 				positiony=boid.y;
 			}
 			index++;
 		}
-		positionCentre.x/=(nombre-1);
-		positionCentre.y/=(nombre-1);
 		Point p = new Point();
-		p.x = (positionCentre.x - positionx)/100;
-		p.y = (positionCentre.y - positiony)/100;
+		if(nombreBoidsSimilaires!=0) {
+			positionCentre.x/=nombreBoidsSimilaires;
+			positionCentre.y/=nombreBoidsSimilaires;
+			p.x = (positionCentre.x - positionx)/100;
+			p.y = (positionCentre.y - positiony)/100;
+		}
 		vectorRule1.setElementAt(p, indice);
 	}
-
-	void rule2(Point bj, int indice) {
+	
+	/**Boids try to keep a small distance away from other boids*/
+	protected void rule2(Point bj, int indice) {
 		Point v=new Point();
 		int index=0;
 		ArrayList<Point> ballsListe=getListeBalles();
@@ -86,7 +177,7 @@ public class Boids extends Balls {
 			Point boid = it.next();
 			if(index!=indice) {
 				double distance = Math.sqrt(Math.pow((boid.x-bj.x),2)+Math.pow((boid.y-bj.y),2));
-				if (distance < 20) {
+				if (distance < DISTANCE_MIN) {
 					v.x -= (boid.x - bj.x);
 					v.y-= (boid.y - bj.y);
 				}
@@ -95,8 +186,8 @@ public class Boids extends Balls {
 		}
 		vectorRule2.setElementAt(v, indice);
 	}
-
-	void rule3(int indice) {
+	/**Boids try to match velocity with near boids*/
+	protected void rule3(int indice) {
 		Point v= new Point();
 		int index=0;
 		ArrayList<Point> ballsListe=getListeBalles();
@@ -109,14 +200,15 @@ public class Boids extends Balls {
 			}
 			index++;
 		}
-		v.x/=(nombre-1);
-		v.y/=(nombre-1);
+		v.x/=(nombresBoids-1);
+		v.y/=(nombresBoids-1);
 		v.x = (v.x - vitesses.get(indice).x)/8;
 		v.y = (v.y - vitesses.get(indice).y)/8;
 		vectorRule3.setElementAt(v, indice);
 	}
-
-	void rule4Bounds(Point bj, int indice) {
+	
+	/**Rule to enable boids bounding on the limits of the screen*/
+	protected void rule4Bounds(Point bj, int indice) {
 		Point v = vitesses.get(indice);
 		if(bj.x < 0) {
 			v.x = 30;
@@ -128,13 +220,14 @@ public class Boids extends Balls {
 			v.y = 30;
 		}
 		else if(bj.y > this.tailleDeLaFenetreY) {
-			v.y = -50;
+			v.y = -30;
 		}
 		vitesses.setElementAt(v, indice);
 	}
-
-	void rule5SpeedLImit(int vlim) {
-		for (int i = 0; i < nombre; i++) {
+	
+	/**Rule to limit the speed of the boids*/
+	protected void rule5SpeedLImit(int vlim) {
+		for (int i = 0; i < nombresBoids; i++) {
 			Point v = vitesses.get(i);
 			int module =(int) Math.sqrt(Math.pow(v.x,2)+Math.pow(v.y,2));
 			if(module> vlim) {
@@ -144,8 +237,8 @@ public class Boids extends Balls {
 			}
 		}
 	}
-
-
+	
+	/**Reinitialise the simulation*/
 	@Override
 	public void reInit() {
 		ArrayList<Point> ballsList=getListeBalles();
@@ -160,12 +253,13 @@ public class Boids extends Balls {
 			vectorRule1.setElementAt(new Point(), indice);
 			vectorRule2.setElementAt(new Point(), indice);
 			vectorRule3.setElementAt(new Point(), indice);
+			type[indice]=0;
 			indice++;
 		}
 		setListeBalles(ballsList);
 	}
-
-
+	
+	/** Move all the boids*/
 	public void move() {
 		ArrayList<Point> ballsListe = getListeBalles();
 		int indice =0;
@@ -179,15 +273,9 @@ public class Boids extends Balls {
 			p.y=vitesses.get(indice).y+vectorRule1.get(indice).y+vectorRule2.get(indice).y+vectorRule3.get(indice).y;
 			vitesses.setElementAt(p, indice);
 			rule4Bounds(boid,indice);
-			rule5SpeedLImit(25);
+			rule5SpeedLImit(SPEED_LIMIT);
 			boid.x+=vitesses.get(indice).x;
-//			if(boid.x > this.tailleDeLaFenetreX) {
-//				boid.x=this.tailleDeLaFenetreY-3*(boid.x-this.tailleDeLaFenetreX);
-//			}
 			boid.y+=vitesses.get(indice).y;
-//			if(boid.y > this.tailleDeLaFenetreY) {
-//				boid.y=this.tailleDeLaFenetreY-2*(boid.y-this.tailleDeLaFenetreY);
-//			}
 			indice++;
 		}
 		setListeBalles(ballsListe);

@@ -1,32 +1,35 @@
 package boids;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
-import event.BallsEvent;
-import event.EventManager;
-import gui.GUISimulator;
-import gui.Simulable;
-import gui.Oval;
-import java.awt.Color;
 
-public class BoidsSimulator implements Simulable{
+import gui.GUISimulator;
+import gui.Oval;
+import gui.Simulable;
+
+/**
+ * 
+ * Classe BoidsSimulator chargé de la simulation des comportements definies dans la classe boids
+ *
+ */
+public class BoidsSimulator implements Simulable {
 	private Boids boids;
 	private GUISimulator gui;
 
-	/**
-	*Constructeur du simulateur de boids. L'ensemble sera composé de "nombre" boids et affiché dans la fenêtre graphique "gui".
-	*/
-	public BoidsSimulator(int nombre,GUISimulator gui) {
+	/*
+	 * Constructeur de la classe BoidsSimulator L'ensemble est composé de nombre boids tous de meme nature et d'une fenetre graphique
+	 *@param nombre Nombre de boids présents dans la simulation 
+	 *@param gui Fenetre graphique de la simulation
+	 */
+	public BoidsSimulator(int nombre, GUISimulator gui) {
 		this.gui=gui;
-		boids = new Boids(nombre,gui.getPanelHeight(),gui.getPanelWidth());
-		boids.init();
-		//EventManager.get().addEvent(new BoidsEvent(0, boids));
-		}
-
-	/**
-	*Dessine l'ensemble des boids dans le fenêtre graphique.
-	*/
+		boids=new Boids(nombre,gui.getPanelHeight(),gui.getPanelWidth(),1);
+		dessiner();
+	}
+	
+	/** Draw on the screen the boids*/
 	public void dessiner() {
 		gui.reset();
 		ArrayList<Point> boidsList = boids.getListeBalles();
@@ -40,26 +43,23 @@ public class BoidsSimulator implements Simulable{
 //			indice++;
 		}
 	}
-
-	/**
-	*Incrémente la simulation d'un pas.
-	*/
+	
+	/*
+	 * Incremente la simulation d'un pas
+	 */
 	@Override
 	public void next() {
 		boids.move();
-		//EventManager.get().next();
-		System.out.println(boids.toString());
 		dessiner();
 	}
-
-	/**
-	*Réinitialise la simulation.
-	*/
+	
+	/*
+	 * Reinitialise la simulation
+	 */
 	@Override
 	public void restart() {
 		boids.reInit();
-		System.out.println(boids.toString());
-		dessiner();
+		dessiner();	
 	}
 
 }

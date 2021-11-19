@@ -1,6 +1,5 @@
 package simulateurBalles;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -160,3 +159,4 @@ public class Balls {
 	}
 
 }
+

@@ -1,14 +1,14 @@
 package simulateurBalles;
 
+import java.awt.Color;
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.Iterator;
+
 import event.BallsEvent;
 import event.EventManager;
 import gui.GUISimulator;
-import gui.Simulable;
 import gui.Oval;
-import java.awt.Color;
+import gui.Simulable;
 
 public class BallsSimulator implements Simulable{
 	private Balls balles;
@@ -23,6 +23,7 @@ public class BallsSimulator implements Simulable{
 		this.gui=gui;
 		balles = new Balls(nombre,gui.getPanelHeight(),gui.getPanelWidth());
 		balles.init();
+		dessiner();
 		EventManager.get().addEvent(new BallsEvent(0, balles));
 		}
 
