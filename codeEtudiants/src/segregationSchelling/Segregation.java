@@ -8,8 +8,17 @@ import java.util.Random;
 import jeuDeLImmigration.GameOfImmigration;
 
 public class Segregation extends GameOfImmigration {
+	/**
+	*Paramètre de segregation d'une cellule. Si la cellule a plus de seuil voisin de couleur différente alors elle devient vacante.
+	*/
 	private int seuil;
+	/**
+	*Nombre de couleur prise en compte dans la simulation
+	*/
 	private int nbCouleurs;
+	/**
+	*Liste des cellules dans un état d'attente.
+	*/
 	private LinkedList<Point> listesVacants;
 
 
@@ -27,6 +36,9 @@ public class Segregation extends GameOfImmigration {
 		this.init();
 	}
 
+	/**
+	*Initialisation de notre tableau de couleur.
+	*/
 	@Override
 	public Color[] initialiseCouleurs() {
 		Color[] couleurs = new Color[nbCouleurs+1];
@@ -40,6 +52,9 @@ public class Segregation extends GameOfImmigration {
 		return couleurs;
 	}
 
+	/**
+	*Passage de l'état n à l'état n+1 de la simulation. L'état de chaque cellule est recalculé suivant les règle segregation de Schelling.
+	*/
 	@Override
 	public void move() {
 		int[][] matrice1= this.getMatriceIm();
@@ -73,6 +88,9 @@ public class Segregation extends GameOfImmigration {
 		this.setMatriceImPast(matrice2);
 	}
 
+	/**
+	*Initialisation de la matrice de simulation.
+	*/
 	@Override
 	public void init() {
 		while (listesVacants.size()<50 ) {

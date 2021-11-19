@@ -10,18 +10,22 @@ import java.awt.Color;
 public class SegregationSimulator implements Simulable {
 	private Segregation schelling;
 	GUISimulator gui;
-	private int nbCouleurs;
-	private int seuil;
 
-	public SegregationSimulator(GUISimulator gui, int nbCouleurs, int seuil) {
+	/**
+	*@param gui Fenêtre graphique de la simulation.
+	*@param nbCouleur Nombre de couleur pris en charge par la simulation
+	*@param seuil Paramètre de segregation d'une cellule. Si la cellule a plus de seuil voisin de couleur différente alors elle devient vacante.
+	*/
+	public SegregationSimulator(GUISimulator gui,int nbCouleur,int seuil) {
 		this.gui = gui;
-		this.nbCouleurs = nbCouleurs;
-		this.seuil = seuil;
-		schelling = new Segregation(gui.getPanelHeight(), this.nbCouleurs, this.seuil);
+		schelling = new Segregation(gui.getPanelHeight(), nbCouleur, seuil);
 		dessiner(gui);
 		EventManager.get().addEvent(new GameOfLifeEvent(0, schelling));
 	}
 
+	/**
+	*Représente les elements de la matrice de simulation dans la fenêtre graphique.
+	*/
 	public void dessiner(GUISimulator gui) {
 		int size = this.schelling.getSize();
 		gui.reset();
@@ -34,6 +38,9 @@ public class SegregationSimulator implements Simulable {
 		}
 	}
 
+	/**
+	*Incrémente la simulation d'un pas.
+	*/
 	@Override
 	public void next() {
 		EventManager.get().next();
@@ -41,6 +48,9 @@ public class SegregationSimulator implements Simulable {
 
 	}
 
+	/**
+	*Réinitialise la simulation.
+	*/
 	@Override
 	public void restart() {
 		schelling.reinitialiser();
